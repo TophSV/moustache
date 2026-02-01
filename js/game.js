@@ -17,6 +17,9 @@ const Game = {
   },
 
   init() {
+    // Preroll video intro
+    this.startPreroll();
+
     // Sound toggle
     const soundBtn = document.getElementById("sound-toggle");
     soundBtn.addEventListener("click", () => {
@@ -47,18 +50,7 @@ const Game = {
       .getElementById("enter-investigation-btn")
       .addEventListener("click", () => this.enterInvestigation());
 
-    // Tool buttons
-    document.querySelectorAll(".tool-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const tool = btn.dataset.tool;
-        if (tool) Investigation.openTool(tool);
-      });
-    });
-
-    // Detail panel close
-    document
-      .getElementById("detail-close")
-      .addEventListener("click", () => Investigation.closePanel());
+    // (Tool buttons and detail panel removed — fever dream handles post-quiz)
 
     // Secrets
     Secrets.init();
@@ -69,6 +61,47 @@ const Game = {
         Investigation.addDossier(DOSSIER_TEMPLATES.triedToLeave());
       }
     });
+  },
+
+  // --- PREROLL ---
+  startPreroll() {
+    const video = document.getElementById("preroll-video");
+    const secondsEl = document.getElementById("preroll-seconds");
+    const countdown = document.getElementById("preroll-countdown");
+    const playBtn = document.getElementById("preroll-play");
+    const skipBtn = document.getElementById("preroll-skip");
+    let remaining = 8;
+    let done = false;
+
+    const finish = () => {
+      if (done) return;
+      done = true;
+      clearInterval(timer);
+      const preroll = document.getElementById("act-preroll");
+      preroll.style.opacity = "0";
+      preroll.style.transition = "opacity 0.8s ease";
+      setTimeout(() => {
+        this.showAct("act-title");
+      }, 800);
+    };
+
+    let timer;
+
+    playBtn.addEventListener("click", () => {
+      playBtn.style.display = "none";
+      skipBtn.style.display = "none";
+      video.style.display = "";
+      countdown.style.display = "";
+      video.play();
+      timer = setInterval(() => {
+        remaining--;
+        if (secondsEl) secondsEl.textContent = remaining;
+        if (remaining <= 0) finish();
+      }, 1000);
+      video.addEventListener("ended", finish);
+    });
+
+    skipBtn.addEventListener("click", finish);
   },
 
   // --- ACT MANAGEMENT ---
@@ -324,22 +357,10 @@ const Game = {
     this.boostTruth(5);
   },
 
-  // --- ENTER INVESTIGATION ---
+  // --- ENTER THE FEVER DREAM ---
   enterInvestigation() {
-    this.showAct("act-investigation");
-    Audio.startAmbient(0.3);
-    Effects.startFlickerLoop(0.2);
-    this.boostTruth(3);
-
-    // Highlight evidence button
-    const evBtn = document.getElementById("tool-evidence");
-    if (evBtn) evBtn.classList.add("tool-highlight");
-
-    // Auto-open evidence files after a brief pause
-    setTimeout(() => {
-      Investigation.openTool("evidence");
-      if (evBtn) evBtn.classList.remove("tool-highlight");
-    }, 1200);
+    this.showAct("act-feverdream");
+    FeverDream.start();
   },
 };
 

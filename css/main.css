@@ -54,6 +54,54 @@ body::before {
   opacity: 0.6;
 }
 
+/* ---- PREROLL VIDEO INTRO ---- */
+.preroll-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #000;
+  gap: 24px;
+}
+
+.preroll-container video {
+  max-width: min(90vw, 640px);
+  max-height: 60vh;
+  border-radius: 2px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+.preroll-countdown {
+  font-family: var(--font-data);
+  font-size: 16px;
+  color: rgba(245, 230, 208, 0.45);
+  letter-spacing: 0.12em;
+}
+
+.preroll-countdown span {
+  color: var(--amber);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.preroll-skip {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: rgba(245, 230, 208, 0.2);
+  background: none;
+  border: 1px solid rgba(245, 230, 208, 0.1);
+  padding: 6px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.preroll-skip:hover {
+  color: rgba(245, 230, 208, 0.6);
+  border-color: rgba(245, 230, 208, 0.3);
+}
+
 /* ---- TRUTH BAR (persistent top) ---- */
 .truth-bar {
   position: fixed;

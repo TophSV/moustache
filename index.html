@@ -53,8 +53,34 @@
       </svg>
     </div>
 
+    <!-- ====== PREROLL: Video Intro ====== -->
+    <section id="act-preroll" class="act active">
+      <div class="preroll-container">
+        <video
+          id="preroll-video"
+          src="media/moustache_ride_intro_video.mp4"
+          playsinline
+          style="display: none"
+        ></video>
+        <div
+          class="preroll-countdown"
+          id="preroll-countdown"
+          style="display: none"
+        >
+          Your Moustache Ride Begins in
+          <span id="preroll-seconds">8</span> seconds
+        </div>
+        <button class="preroll-play btn-primary" id="preroll-play">
+          <span class="btn-text">&#9654; BEGIN BRIEFING</span>
+        </button>
+        <button class="preroll-skip" id="preroll-skip">
+          skip video and have slightly less fun
+        </button>
+      </div>
+    </section>
+
     <!-- ====== ACT 0: TITLE ====== -->
-    <section id="act-title" class="act active">
+    <section id="act-title" class="act">
       <div class="title-content">
         <svg
           viewBox="0 0 400 120"
@@ -190,83 +216,9 @@
       </div>
     </section>
 
-    <!-- ====== ACT 2: THE INVESTIGATION ====== -->
-    <section id="act-investigation" class="act">
-      <div class="investigation-layout">
-        <!-- CORK BOARD (left/main) -->
-        <div class="corkboard-area">
-          <div class="corkboard-header">
-            <h2 class="corkboard-title">THE BOARD</h2>
-            <span class="corkboard-count" id="board-count">0 items pinned</span>
-          </div>
-          <div class="corkboard" id="corkboard">
-            <div class="corkboard-empty" id="corkboard-empty">
-              Your quiz is over. Your investigation has begun.<br />
-              Click evidence documents to pin them here.<br />
-              Every action increases your truth rating. It never goes down.
-            </div>
-          </div>
-        </div>
-
-        <!-- TOOLS PANEL (right) -->
-        <div class="tools-panel">
-          <div class="tools-header">INVESTIGATION TOOLS</div>
-
-          <!-- Evidence files -->
-          <div class="tool-section">
-            <button class="tool-btn" id="tool-evidence" data-tool="evidence">
-              <span class="tool-icon">&#128194;</span>
-              <span class="tool-name">EVIDENCE FILES</span>
-              <span class="tool-desc">14 classified documents</span>
-            </button>
-          </div>
-
-          <!-- Mustache Forensics -->
-          <div class="tool-section">
-            <button class="tool-btn" id="tool-forensics" data-tool="forensics">
-              <span class="tool-icon">&#128269;</span>
-              <span class="tool-name">MUSTACHE FORENSICS</span>
-              <span class="tool-desc">Side-by-side analysis</span>
-            </button>
-          </div>
-
-          <!-- Defense Layers -->
-          <div class="tool-section">
-            <button class="tool-btn" id="tool-defense" data-tool="defense">
-              <span class="tool-icon">&#128737;</span>
-              <span class="tool-name">DEFENSE PROTOCOLS</span>
-              <span class="tool-desc">How the conspiracy defends itself</span>
-            </button>
-          </div>
-
-          <!-- Your Dossier -->
-          <div class="tool-section">
-            <button class="tool-btn" id="tool-dossier" data-tool="dossier">
-              <span class="tool-icon">&#128196;</span>
-              <span class="tool-name">YOUR DOSSIER</span>
-              <span class="tool-desc">The file we're building on you</span>
-            </button>
-          </div>
-
-          <!-- Share / Transmit -->
-          <div class="tool-section">
-            <button class="tool-btn" id="tool-share" data-tool="share">
-              <span class="tool-icon">&#128225;</span>
-              <span class="tool-name">TRANSMIT FINDINGS</span>
-              <span class="tool-desc">Spread the investigation</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- DETAIL PANEL (slides over) -->
-      <div id="detail-panel" class="detail-panel" style="display: none">
-        <div class="detail-header">
-          <h3 class="detail-title" id="detail-title"></h3>
-          <button class="detail-close" id="detail-close">&times;</button>
-        </div>
-        <div class="detail-body" id="detail-body"></div>
-      </div>
+    <!-- ====== ACT 2: THE FEVER DREAM ====== -->
+    <section id="act-feverdream" class="act">
+      <div id="fever-stage" class="fever-stage"></div>
     </section>
 
     <!-- Popup container -->
@@ -277,6 +229,7 @@
     <script src="js/audio.js"></script>
     <script src="js/effects.js"></script>
     <script src="js/evidence.js"></script>
+    <script src="js/feverdream.js"></script>
     <script src="js/secrets.js"></script>
     <script src="js/game.js"></script>
   </body>

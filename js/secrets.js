@@ -75,7 +75,8 @@ const Secrets = {
 
       Game.state.truthRating = 70;
       Game.updateTruthBar();
-      Game.showAct("act-investigation");
+      Game.showAct("act-feverdream");
+      FeverDream.start();
       Audio.init();
       Audio.startAmbient(0.5);
       Effects.startFlickerLoop(0.6);

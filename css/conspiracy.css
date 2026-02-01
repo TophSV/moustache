@@ -267,3 +267,517 @@ body.conspiracy-mode .footer-classification::after {
     opacity: 0;
   }
 }
+
+/* ============================================================
+   FEVER DREAM — The linear descent
+   ============================================================ */
+
+/* ---- STAGE ---- */
+.fever-stage {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 40px;
+  overflow: hidden;
+}
+
+/* ---- EVIDENCE CARDS ---- */
+.fever-evidence {
+  max-width: 640px;
+  width: 100%;
+  padding: 32px 36px;
+  background: rgba(20, 12, 6, 0.85);
+  border: 1px solid rgba(204, 32, 32, 0.25);
+  border-left: 3px solid var(--red-string, #cc2020);
+  animation: feverFadeIn 0.6s ease both;
+}
+
+.fever-evidence-title {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 700;
+  color: var(--red-string, #cc2020);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.fever-evidence-text {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  font-size: clamp(14px, 2.5vw, 18px);
+  color: var(--cream, #f5e6d0);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.fever-evidence-sub {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  font-size: 14px;
+  color: var(--amber, #e8a030);
+  letter-spacing: 0.08em;
+  margin-top: 12px;
+  opacity: 0;
+  animation: feverFadeIn 0.5s ease 0.3s both;
+}
+
+/* ---- TEXT STYLES ---- */
+.fever-highlight {
+  color: var(--red-string, #cc2020);
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(204, 32, 32, 0.5);
+}
+
+.fever-big {
+  font-size: clamp(16px, 3vw, 22px) !important;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.fever-huge {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 900;
+  color: var(--cream, #f5e6d0);
+  text-align: center;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+.fever-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 640px;
+  width: 100%;
+  gap: 12px;
+}
+
+.fever-question {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(22px, 5vw, 40px);
+  font-weight: 700;
+  color: var(--cream, #f5e6d0);
+  transition: opacity 0.8s ease;
+}
+
+.fever-text-dim {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  font-size: 15px;
+  color: rgba(245, 230, 208, 0.5);
+  letter-spacing: 0.06em;
+}
+
+/* ---- TERMINAL ---- */
+.fever-terminal {
+  max-width: 640px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 255, 0, 0.15);
+  padding: 24px;
+  font-family: var(--font-data, "VT323", monospace);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.fever-terminal-line {
+  font-size: 16px;
+  color: var(--amber, #e8a030);
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+.fever-terminal-line.fever-green {
+  color: #00ff41;
+}
+
+.fever-terminal-line.fever-fast {
+  animation: feverFadeIn 0.15s ease both;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+/* ---- BUTTONS ---- */
+.fever-btn {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream, #f5e6d0);
+  background: transparent;
+  border: 1px solid var(--amber, #e8a030);
+  padding: 12px 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+}
+
+.fever-btn:hover {
+  background: rgba(232, 160, 48, 0.1);
+  border-color: var(--cream, #f5e6d0);
+  box-shadow: 0 0 20px rgba(232, 160, 48, 0.15);
+}
+
+.fever-btn-dim {
+  border-color: rgba(245, 230, 208, 0.25);
+  color: rgba(245, 230, 208, 0.5);
+}
+
+.fever-btn-dim:hover {
+  border-color: rgba(245, 230, 208, 0.5);
+}
+
+.fever-choice {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ---- "One." CASCADE ---- */
+.fever-one {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-weight: 900;
+  color: var(--cream, #f5e6d0);
+  text-align: center;
+  margin: 4px 0;
+  animation: feverFadeIn 0.3s ease both;
+}
+
+/* ---- TIMELINE ---- */
+.fever-timeline {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  margin: 16px 0;
+}
+
+.fever-timeline-bar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: #000;
+  transition:
+    width 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    margin-left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  margin-bottom: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fever-bar-r {
+  background: var(--red-string, #cc2020);
+}
+
+.fever-bar-s {
+  background: var(--amber, #e8a030);
+}
+
+.fever-overlap {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 14px;
+  color: var(--red-string, #cc2020);
+  text-align: center;
+  letter-spacing: 0.15em;
+  margin-top: 8px;
+  animation: blink 1s steps(1) infinite;
+}
+
+/* ---- FORENSICS ---- */
+.fever-forensics {
+  max-width: 640px;
+  width: 100%;
+}
+
+.fever-forensic-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 14px;
+}
+
+.fever-forensic-label {
+  width: 140px;
+  flex-shrink: 0;
+  color: var(--cream, #f5e6d0);
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.fever-forensic-track {
+  flex: 1;
+  height: 16px;
+  background: rgba(245, 230, 208, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.fever-forensic-fill-s,
+.fever-forensic-fill-r {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fever-forensic-fill-s {
+  background: var(--amber, #e8a030);
+}
+
+.fever-forensic-fill-r {
+  top: 50%;
+  background: var(--red-string, #cc2020);
+}
+
+.fever-forensic-vals {
+  width: 120px;
+  flex-shrink: 0;
+  color: rgba(245, 230, 208, 0.6);
+  font-size: 12px;
+}
+
+.fever-verdict {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(24px, 5vw, 44px);
+  font-weight: 900;
+  color: var(--red-string, #cc2020);
+  text-align: center;
+  margin-top: 24px;
+  letter-spacing: 0.1em;
+}
+
+/* ---- SPINNER ---- */
+.fever-spinner {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 14px;
+  color: var(--amber, #e8a030);
+  letter-spacing: 0.1em;
+  margin-top: 12px;
+  animation: blink 1.5s steps(1) infinite;
+}
+
+/* ---- DOSSIER TEXT ---- */
+.fever-dossier-text {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 15px;
+  color: var(--amber, #e8a030);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  max-width: 500px;
+}
+
+/* ---- SLAM (rapid montage) ---- */
+.fever-slam {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(22px, 5vw, 42px);
+  font-weight: 900;
+  color: var(--cream, #f5e6d0);
+  letter-spacing: 0.08em;
+  animation: slamIn 0.15s ease both;
+}
+
+@keyframes slamIn {
+  from {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---- SCRIPT PAGE ---- */
+.fever-script {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  font-size: clamp(16px, 3vw, 22px);
+  color: var(--cream, #f5e6d0);
+  background: rgba(245, 230, 208, 0.04);
+  border-left: 2px solid var(--amber, #e8a030);
+  padding: 16px 20px;
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+/* ---- ANIMATED NUMBER ---- */
+.fever-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- VIBRATE ---- */
+.fever-vibrate {
+  animation: feverVibrate 0.1s linear infinite;
+}
+
+@keyframes feverVibrate {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) translateY(1px);
+  }
+  50% {
+    transform: translateX(1px) translateY(-1px);
+  }
+  75% {
+    transform: translateX(-1px) translateY(1px);
+  }
+}
+
+/* ---- CHAOS TEXT ---- */
+.fever-chaos {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  color: var(--cream, #f5e6d0);
+  line-height: 1.2;
+  word-break: break-all;
+  text-align: center;
+  max-width: 500px;
+}
+
+/* ---- CALM (post-blackout) ---- */
+.fever-calm {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(245, 230, 208, 0.7);
+  text-align: center;
+  animation: feverFadeIn 2s ease both;
+}
+
+/* ---- CLICK HINT ---- */
+.fever-click-hint {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 13px;
+  color: rgba(245, 230, 208, 0.25);
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+  margin-top: 24px;
+  animation: blink 2s steps(1) infinite;
+  cursor: pointer;
+}
+
+/* ---- FINALE ---- */
+.fever-finale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 600px;
+  width: 100%;
+  animation: feverFadeIn 1.5s ease both;
+}
+
+.fever-finale-text {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 900;
+  color: var(--red-string, #cc2020);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-shadow: 0 0 40px rgba(204, 32, 32, 0.4);
+}
+
+.fever-finale-rating {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 22px;
+  color: var(--amber, #e8a030);
+  letter-spacing: 0.1em;
+}
+
+.fever-finale-label {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(16px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--red-string, #cc2020);
+  letter-spacing: 0.2em;
+}
+
+/* ---- SHARE CARDS ---- */
+.fever-share-wrap {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.fever-share-label {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  color: rgba(245, 230, 208, 0.4);
+  margin-bottom: 12px;
+}
+
+.fever-share-card {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  font-size: 14px;
+  color: var(--cream, #f5e6d0);
+  background: rgba(245, 230, 208, 0.04);
+  border: 1px solid rgba(245, 230, 208, 0.12);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.fever-share-card:hover {
+  border-color: var(--amber, #e8a030);
+  background: rgba(232, 160, 48, 0.06);
+}
+
+.fever-copied {
+  color: var(--amber, #e8a030);
+  border-color: var(--amber, #e8a030);
+  text-align: center;
+  font-family: var(--font-data, "VT323", monospace);
+  letter-spacing: 0.15em;
+}
+
+/* ---- PLAY AGAIN ---- */
+.fever-play-again {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  color: rgba(245, 230, 208, 0.3);
+  margin-top: 32px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.fever-play-again:hover {
+  color: var(--cream, #f5e6d0);
+}
+
+/* ---- SCREEN TILT (permanent from beat 12) ---- */
+.screen-tilt #act-feverdream {
+  transform: rotate(1.2deg);
+  transition: transform 0.5s ease;
+}
+
+/* ---- FADE IN ANIMATION ---- */
+@keyframes feverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

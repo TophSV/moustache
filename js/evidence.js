@@ -286,10 +286,8 @@ const Investigation = {
 // Legacy alias for secrets.js compatibility
 const EvidenceRoom = {
   open() {
-    Game.showAct("act-investigation");
-    Investigation.openTool("evidence");
+    Game.showAct("act-feverdream");
+    FeverDream.start();
   },
-  close() {
-    Investigation.closePanel();
-  },
+  close() {},
 };
