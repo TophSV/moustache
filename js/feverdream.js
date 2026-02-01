@@ -508,6 +508,64 @@ const FeverDream = {
       },
     },
 
+    // ========== BEAT 10.5: YOU DIDN'T EVEN NOTICE ==========
+    {
+      corruption: 0.58,
+      truth: 5,
+      async render(stage, next) {
+        // Find impostors the player saw
+        const impostors = (Game.state.quizPhotos || []).filter(
+          (p) => p.type === "impostor",
+        );
+        if (impostors.length === 0) {
+          next();
+          return;
+        }
+        stage.innerHTML = "";
+        const wrap = makeEl("div", "fever-centered");
+        stage.appendChild(wrap);
+        const title = makeEl("div", "fever-evidence-title");
+        wrap.appendChild(title);
+        Effects.scrambleText(title, "YOU DIDN'T EVEN NOTICE", 600);
+        Audio.playGlitch();
+        await dramaticPause(1500);
+        const sub = makeEl("div", "fever-text-dim");
+        sub.textContent = "Some of those photos weren't Tom or Burt.";
+        wrap.appendChild(sub);
+        await dramaticPause(2000);
+        // Flash each impostor
+        for (const imp of impostors) {
+          const card = makeEl("div", "fever-evidence");
+          card.style.borderColor = "var(--red-string)";
+          const img = document.createElement("img");
+          img.src = imp.url;
+          img.style.cssText =
+            "max-width:200px;max-height:200px;filter:grayscale(0.5) contrast(1.2);margin-bottom:12px;";
+          img.crossOrigin = "anonymous";
+          card.appendChild(img);
+          const label = makeEl("div", "fever-highlight fever-big");
+          label.textContent =
+            imp.answer === "selleck"
+              ? "YOU CALLED THIS TOM SELLECK"
+              : "YOU CALLED THIS BURT REYNOLDS";
+          card.appendChild(label);
+          wrap.appendChild(card);
+          shakeScreen(4, 200);
+          await dramaticPause(2000);
+        }
+        await dramaticPause(1000);
+        const punchline = makeEl(
+          "div",
+          "fever-evidence-sub fever-big",
+          "If you can't tell who has the mustache, does it matter who's behind it?",
+        );
+        wrap.appendChild(punchline);
+        Effects.triggerGlitch();
+        await dramaticPause(3000);
+        next();
+      },
+    },
+
     // ========== BEAT 11: DEFENSE PROTOCOL ==========
     {
       corruption: 0.6,
@@ -961,7 +1019,7 @@ const FeverDream = {
         wrap.appendChild(spread);
         await dramaticPause(2000);
         const again = makeEl("div", "fever-play-again");
-        again.textContent = "PLAY AGAIN";
+        again.textContent = "PLAY AGAIN — DIFFERENT PHOTOS, SAME TRUTH";
         again.addEventListener("click", () => {
           Effects.cleanup();
           document.body.classList.remove("screen-tilt", "conspiracy-mode");

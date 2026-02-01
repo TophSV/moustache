@@ -114,18 +114,53 @@ const Game = {
     this.state.act = actId;
   },
 
+  // --- QUIZ SELECTION ---
+  selectQuizPhotos() {
+    const shuffle = (arr) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const selleck = shuffle(
+      PHOTO_DATA.filter((p) => p.answer === "selleck" && p.type === "real"),
+    );
+    const reynolds = shuffle(
+      PHOTO_DATA.filter((p) => p.answer === "reynolds" && p.type === "real"),
+    );
+    const impostors = shuffle(PHOTO_DATA.filter((p) => p.type === "impostor"));
+
+    // Pick 3 selleck, 3 reynolds, 2 impostors
+    const picked = [
+      ...selleck.slice(0, 3),
+      ...reynolds.slice(0, 3),
+      ...impostors.slice(0, 2),
+    ];
+
+    // Shuffle the final selection and assign exhibits
+    const labels = "ABCDEFGH";
+    return shuffle(picked).map((photo, i) => ({
+      ...photo,
+      exhibit: "Exhibit " + labels[i],
+    }));
+  },
+
   // --- START GAME ---
   startGame() {
     this.state = {
       act: "act-quiz",
       round: 0,
       score: 0,
-      totalRounds: PHOTO_DATA.length,
+      totalRounds: 8,
       answers: [],
       truthRating: 0,
       startTime: Date.now(),
       started: true,
       timerInterval: null,
+      quizPhotos: this.selectQuizPhotos(),
     };
 
     // Show truth bar
@@ -229,7 +264,7 @@ const Game = {
   },
 
   showPhoto() {
-    const data = PHOTO_DATA[this.state.round - 1];
+    const data = this.state.quizPhotos[this.state.round - 1];
     if (!data) return this.showTurn();
 
     const img = document.getElementById("photo-img");
@@ -271,7 +306,7 @@ const Game = {
       .querySelectorAll(".btn-answer")
       .forEach((b) => (b.disabled = true));
 
-    const data = PHOTO_DATA[this.state.round - 1];
+    const data = this.state.quizPhotos[this.state.round - 1];
     const isCorrect = guess === data.answer;
 
     if (isCorrect) {
@@ -336,7 +371,7 @@ const Game = {
     const comment = document.getElementById("turn-score-comment");
     if (this.state.score >= 7) {
       comment.textContent = "Interesting. You seem to know too much.";
-    } else if (this.state.score >= 5) {
+    } else if (this.state.score >= 4) {
       comment.textContent = "Not bad. Not good enough.";
     } else {
       comment.textContent = "Exactly what they want you to score.";
