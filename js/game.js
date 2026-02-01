@@ -330,6 +330,16 @@ const Game = {
     Audio.startAmbient(0.3);
     Effects.startFlickerLoop(0.2);
     this.boostTruth(3);
+
+    // Highlight evidence button
+    const evBtn = document.getElementById("tool-evidence");
+    if (evBtn) evBtn.classList.add("tool-highlight");
+
+    // Auto-open evidence files after a brief pause
+    setTimeout(() => {
+      Investigation.openTool("evidence");
+      if (evBtn) evBtn.classList.remove("tool-highlight");
+    }, 1200);
   },
 };
 
