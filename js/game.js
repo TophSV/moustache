@@ -1,0 +1,337 @@
+// ============================================================
+// MOUSTACHE — Main Game Controller
+// The engine. The state. The slow, inevitable descent.
+// ============================================================
+
+const Game = {
+  state: {
+    act: "title",
+    round: 0,
+    score: 0,
+    totalRounds: 8,
+    answers: [],
+    truthRating: 0,
+    startTime: null,
+    started: false,
+    timerInterval: null,
+  },
+
+  init() {
+    // Sound toggle
+    const soundBtn = document.getElementById("sound-toggle");
+    soundBtn.addEventListener("click", () => {
+      Audio.init();
+      const on = Audio.toggle();
+      soundBtn.classList.toggle("active", on);
+      soundBtn.innerHTML = on
+        ? '<span class="sound-on">&#9835;</span>'
+        : '<span class="sound-off">&#9834;</span>';
+    });
+
+    // Start button
+    document.getElementById("start-btn").addEventListener("click", () => {
+      Audio.init();
+      this.startGame();
+    });
+
+    // Quiz answer buttons
+    document
+      .getElementById("btn-selleck")
+      .addEventListener("click", () => this.submitAnswer("selleck"));
+    document
+      .getElementById("btn-reynolds")
+      .addEventListener("click", () => this.submitAnswer("reynolds"));
+
+    // Enter investigation button
+    document
+      .getElementById("enter-investigation-btn")
+      .addEventListener("click", () => this.enterInvestigation());
+
+    // Tool buttons
+    document.querySelectorAll(".tool-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tool = btn.dataset.tool;
+        if (tool) Investigation.openTool(tool);
+      });
+    });
+
+    // Detail panel close
+    document
+      .getElementById("detail-close")
+      .addEventListener("click", () => Investigation.closePanel());
+
+    // Secrets
+    Secrets.init();
+
+    // Beforeunload — log in dossier
+    window.addEventListener("beforeunload", () => {
+      if (this.state.started) {
+        Investigation.addDossier(DOSSIER_TEMPLATES.triedToLeave());
+      }
+    });
+  },
+
+  // --- ACT MANAGEMENT ---
+  showAct(actId) {
+    document
+      .querySelectorAll(".act")
+      .forEach((a) => a.classList.remove("active"));
+    const el = document.getElementById(actId);
+    if (el) el.classList.add("active");
+    this.state.act = actId;
+  },
+
+  // --- START GAME ---
+  startGame() {
+    this.state = {
+      act: "act-quiz",
+      round: 0,
+      score: 0,
+      totalRounds: PHOTO_DATA.length,
+      answers: [],
+      truthRating: 0,
+      startTime: Date.now(),
+      started: true,
+      timerInterval: null,
+    };
+
+    // Show truth bar
+    document.getElementById("truth-bar").style.display = "";
+
+    // Start timer
+    this.startTimer();
+
+    // Show quiz
+    this.showAct("act-quiz");
+    this.nextRound();
+  },
+
+  // --- TIMER ---
+  startTimer() {
+    if (this.state.timerInterval) clearInterval(this.state.timerInterval);
+    this.state.timerInterval = setInterval(() => this.updateTimer(), 1000);
+    this.updateTimer();
+  },
+
+  updateTimer() {
+    const el = document.getElementById("time-display");
+    if (el) el.textContent = this.getTimeString();
+  },
+
+  getMinutesElapsed() {
+    if (!this.state.startTime) return 0;
+    return Math.floor((Date.now() - this.state.startTime) / 60000);
+  },
+
+  getTimeString() {
+    if (!this.state.startTime) return "0:00";
+    const secs = Math.floor((Date.now() - this.state.startTime) / 1000);
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return m + ":" + String(s).padStart(2, "0");
+  },
+
+  // --- TRUTH RATING ---
+  boostTruth(amount) {
+    this.state.truthRating = Math.min(100, this.state.truthRating + amount);
+    this.updateTruthBar();
+  },
+
+  updateTruthBar() {
+    const r = this.state.truthRating;
+    document.getElementById("truth-value").textContent = r;
+    document.getElementById("truth-meter-fill").style.width = r + "%";
+
+    // Find label
+    const tier =
+      TRUTH_RATINGS.find((t) => r <= t.max) ||
+      TRUTH_RATINGS[TRUTH_RATINGS.length - 1];
+    document.getElementById("truth-status").textContent = tier.label;
+
+    // Corruption scales with truth rating
+    const corruption = Math.min(1, r / 100);
+    document.documentElement.style.setProperty("--corruption", corruption);
+
+    // Add conspiracy mode class at high ratings
+    if (r >= 60) {
+      document.body.classList.add("conspiracy-mode");
+    }
+  },
+
+  getTruthLabel() {
+    const r = this.state.truthRating;
+    const tier =
+      TRUTH_RATINGS.find((t) => r <= t.max) ||
+      TRUTH_RATINGS[TRUTH_RATINGS.length - 1];
+    return tier.label;
+  },
+
+  // --- QUIZ FLOW ---
+  nextRound() {
+    this.state.round++;
+    if (this.state.round > this.state.totalRounds) {
+      this.showTurn();
+      return;
+    }
+
+    this.updateHUD();
+
+    // Show loading
+    const loading = document.getElementById("quiz-loading");
+    const photo = document.getElementById("quiz-photo");
+    const result = document.getElementById("quiz-result");
+
+    loading.style.display = "";
+    photo.style.display = "none";
+    result.style.display = "none";
+
+    // Loading message
+    const msg =
+      LOADING_MESSAGES[Math.floor(Math.random() * LOADING_MESSAGES.length)];
+    document.getElementById("loading-text").textContent = msg;
+
+    // Loading delay
+    const duration = 1200 + Math.random() * 800;
+    setTimeout(() => this.showPhoto(), duration);
+  },
+
+  showPhoto() {
+    const data = PHOTO_DATA[this.state.round - 1];
+    if (!data) return this.showTurn();
+
+    const img = document.getElementById("photo-img");
+    const fallback = document.getElementById("photo-fallback");
+
+    img.style.display = "";
+    fallback.style.display = "none";
+
+    img.onerror = () => {
+      img.style.display = "none";
+      fallback.style.display = "";
+      document.getElementById("fallback-exhibit").textContent = data.exhibit;
+      document.getElementById("fallback-desc").textContent = data.desc;
+      document.getElementById("fallback-era").textContent = data.era;
+    };
+
+    img.src = data.url;
+
+    document.getElementById("exhibit-label").textContent = data.exhibit;
+    document.getElementById("era-label").textContent = data.era;
+
+    const hintArea = document.getElementById("hint-area");
+    hintArea.textContent = data.hint || "";
+
+    // Enable buttons
+    document
+      .querySelectorAll(".btn-answer")
+      .forEach((b) => (b.disabled = false));
+
+    // Show photo area
+    document.getElementById("quiz-loading").style.display = "none";
+    document.getElementById("quiz-photo").style.display = "";
+    document.getElementById("quiz-result").style.display = "none";
+  },
+
+  submitAnswer(guess) {
+    // Disable buttons
+    document
+      .querySelectorAll(".btn-answer")
+      .forEach((b) => (b.disabled = true));
+
+    const data = PHOTO_DATA[this.state.round - 1];
+    const isCorrect = guess === data.answer;
+
+    if (isCorrect) {
+      this.state.score++;
+      Audio.playCorrect();
+    } else {
+      Audio.playWrong();
+    }
+
+    this.state.answers.push({
+      round: this.state.round,
+      guess,
+      correct: isCorrect,
+      actual: data.answer,
+    });
+
+    // Show result
+    const resultEl = document.getElementById("quiz-result");
+    const iconEl = document.getElementById("result-icon");
+    const textEl = document.getElementById("result-text");
+
+    resultEl.style.display = "";
+    document.getElementById("quiz-photo").style.display = "none";
+
+    if (isCorrect) {
+      iconEl.textContent = "\u2713";
+      textEl.textContent = "CORRECT";
+      resultEl.className = "quiz-result result-correct";
+    } else {
+      const name = data.answer === "selleck" ? "Tom Selleck" : "Burt Reynolds";
+      iconEl.textContent = "\u2717";
+      textEl.textContent = "INCORRECT \u2014 That was " + name;
+      resultEl.className = "quiz-result result-wrong";
+    }
+
+    // Truth goes up regardless
+    this.boostTruth(isCorrect ? 1 : 2);
+
+    this.updateHUD();
+
+    setTimeout(() => this.nextRound(), 1800);
+  },
+
+  updateHUD() {
+    const rd = document.getElementById("round-display");
+    const sd = document.getElementById("score-display");
+    if (rd) rd.textContent = this.state.round + " / " + this.state.totalRounds;
+    if (sd) sd.textContent = this.state.score;
+  },
+
+  // --- THE TURN ---
+  showTurn() {
+    // Add quiz completion to dossier
+    Investigation.addDossier(
+      DOSSIER_TEMPLATES.quizComplete(this.state.score, this.state.totalRounds),
+    );
+
+    this.showAct("act-turn");
+
+    // Score display
+    document.getElementById("turn-score").textContent = this.state.score;
+    const comment = document.getElementById("turn-score-comment");
+    if (this.state.score >= 7) {
+      comment.textContent = "Interesting. You seem to know too much.";
+    } else if (this.state.score >= 5) {
+      comment.textContent = "Not bad. Not good enough.";
+    } else {
+      comment.textContent = "Exactly what they want you to score.";
+    }
+
+    // Reveal lines with delays
+    document.querySelectorAll(".turn-line").forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(10px)";
+      el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+      const delay = parseInt(el.dataset.delay) || 0;
+      setTimeout(() => {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      }, delay);
+    });
+
+    this.boostTruth(5);
+  },
+
+  // --- ENTER INVESTIGATION ---
+  enterInvestigation() {
+    this.showAct("act-investigation");
+    Audio.startAmbient(0.3);
+    Effects.startFlickerLoop(0.2);
+    this.boostTruth(3);
+  },
+};
+
+// Initialize on DOM ready
+document.addEventListener("DOMContentLoaded", () => Game.init());

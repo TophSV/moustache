@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOUSTACHE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Special+Elite&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/effects.css" />
+    <link rel="stylesheet" href="css/conspiracy.css" />
+  </head>
+  <body>
+    <!-- VHS / GRAIN / GLITCH overlays -->
+    <div id="vhs-overlay" aria-hidden="true"></div>
+    <div id="grain-overlay" aria-hidden="true"></div>
+    <div id="glitch-overlay" aria-hidden="true"></div>
+    <svg id="red-strings" class="red-strings-svg" aria-hidden="true"></svg>
+
+    <!-- PERSISTENT: Truth Rating + Timer bar -->
+    <div id="truth-bar" class="truth-bar" style="display: none">
+      <div class="truth-bar-inner">
+        <div class="truth-bar-left">
+          <span class="truth-bar-label">TRUTH RATING</span>
+          <span class="truth-bar-value" id="truth-value">0</span>
+        </div>
+        <div class="truth-meter">
+          <div class="truth-meter-fill" id="truth-meter-fill"></div>
+        </div>
+        <div class="truth-bar-right">
+          <span class="truth-bar-label">TIME IN FILE</span>
+          <span class="truth-bar-value" id="time-display">0:00</span>
+        </div>
+      </div>
+      <div class="truth-status" id="truth-status">BLISSFULLY IGNORANT</div>
+    </div>
+
+    <!-- Sound toggle -->
+    <button id="sound-toggle" class="sound-toggle" aria-label="Toggle sound">
+      <span class="sound-off">&#9834;</span>
+    </button>
+
+    <!-- Hidden mustache icon for evidence room -->
+    <div id="mustache-icon" class="mustache-icon" title="?">
+      <svg viewBox="0 0 120 40" fill="currentColor">
+        <path
+          d="M60 30c-8 0-14-6-20-12C34 12 26 8 18 8 8 8 2 16 2 22c0 4 2 7 6 7 6 0 10-6 16-10 4-3 8-5 12-5h0c0 0 0 0 0 0h0c4 0 8 2 12 5 6 4 10 10 16 10 4 0 6-3 6-7 0-6-6-14-16-14-8 0-16 4-22 10C66 24 68 30 60 30z"
+        />
+      </svg>
+    </div>
+
+    <!-- ====== ACT 0: TITLE ====== -->
+    <section id="act-title" class="act active">
+      <div class="title-content">
+        <svg
+          viewBox="0 0 400 120"
+          fill="none"
+          class="hero-stache"
+          aria-hidden="true"
+        >
+          <path
+            d="M200 95c-28 0-48-20-68-42C112 28 88 10 58 10 22 10 2 42 2 62c0 16 8 26 22 26 20 0 36-18 54-34 14-12 28-18 42-18h0c14 0 28 6 42 18 18 16 34 34 54 34 14 0 22-10 22-26 0-20-20-52-56-52-30 0-54 18-74 43C188 75 228 95 200 95z"
+            fill="currentColor"
+          />
+        </svg>
+        <h1 class="title-heading">
+          <span class="title-the">THE</span>
+          <span class="title-main">MOUSTACHE</span>
+          <span class="title-sub">INVESTIGATION</span>
+        </h1>
+        <p class="title-tagline">
+          Can you tell Tom Selleck from Burt Reynolds?
+        </p>
+        <p class="title-question" id="title-question">
+          ...Or are they the same person?
+        </p>
+        <button class="btn-primary" id="start-btn">
+          <span class="btn-text">BEGIN</span>
+        </button>
+        <p class="title-footnote">
+          This investigation will change how you see mustaches forever.<br />You
+          have been warned.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====== ACT 1: THE QUIZ ====== -->
+    <section id="act-quiz" class="act">
+      <div class="quiz-container">
+        <!-- HUD -->
+        <div class="quiz-hud">
+          <div class="hud-item">
+            <span class="hud-label">CASE FILE</span>
+            <span class="hud-value" id="round-display">1 / 8</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label">CORRECT</span>
+            <span class="hud-value" id="score-display">0</span>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="quiz-loading" class="quiz-loading">
+          <div class="loading-spinner"></div>
+          <p id="loading-text" class="loading-text">
+            Consulting mustache database...
+          </p>
+        </div>
+
+        <!-- Photo + Answer -->
+        <div id="quiz-photo" class="quiz-photo" style="display: none">
+          <div class="polaroid" id="polaroid">
+            <div class="polaroid-inner">
+              <img
+                id="photo-img"
+                src=""
+                alt="Subject photograph"
+                crossorigin="anonymous"
+              />
+              <div
+                id="photo-fallback"
+                class="photo-fallback"
+                style="display: none"
+              >
+                <div class="fallback-exhibit" id="fallback-exhibit"></div>
+                <div class="fallback-desc" id="fallback-desc"></div>
+                <div class="fallback-era" id="fallback-era"></div>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span id="exhibit-label"></span>
+              <span id="era-label"></span>
+            </div>
+          </div>
+          <div class="hint-area" id="hint-area"></div>
+          <div class="answer-buttons" id="answer-buttons">
+            <button class="btn-answer btn-tom" id="btn-selleck">
+              <span class="btn-answer-name">TOM SELLECK</span>
+            </button>
+            <button class="btn-answer btn-burt" id="btn-reynolds">
+              <span class="btn-answer-name">BURT REYNOLDS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result flash -->
+        <div id="quiz-result" class="quiz-result" style="display: none">
+          <div class="result-icon" id="result-icon"></div>
+          <div class="result-text" id="result-text"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== THE TURN: The question that breaks everything ====== -->
+    <section id="act-turn" class="act">
+      <div class="turn-content">
+        <div class="turn-score">
+          You scored <span id="turn-score">0</span>/8.
+          <span id="turn-score-comment"></span>
+        </div>
+        <div class="turn-pause"></div>
+        <p class="turn-text turn-line" data-delay="1500">
+          But that's not why you're here.
+        </p>
+        <div class="turn-pause"></div>
+        <p class="turn-question turn-line" data-delay="4000">
+          Have you ever seen Tom Selleck and Burt Reynolds in the same room?
+        </p>
+        <div class="turn-pause"></div>
+        <p class="turn-text turn-line" data-delay="7500">Take your time.</p>
+        <p class="turn-text turn-line" data-delay="9500">
+          Really think about it.
+        </p>
+        <div class="turn-pause"></div>
+        <p class="turn-text turn-line" data-delay="13000">
+          You're not sure, are you?
+        </p>
+        <div class="turn-pause"></div>
+        <button
+          class="btn-primary turn-line"
+          data-delay="16000"
+          id="enter-investigation-btn"
+        >
+          <span class="btn-text">OPEN THE FILE</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ====== ACT 2: THE INVESTIGATION ====== -->
+    <section id="act-investigation" class="act">
+      <div class="investigation-layout">
+        <!-- CORK BOARD (left/main) -->
+        <div class="corkboard-area">
+          <div class="corkboard-header">
+            <h2 class="corkboard-title">THE BOARD</h2>
+            <span class="corkboard-count" id="board-count">0 items pinned</span>
+          </div>
+          <div class="corkboard" id="corkboard">
+            <div class="corkboard-empty" id="corkboard-empty">
+              Examine evidence to pin it here.<br />Every item increases your
+              truth rating.
+            </div>
+          </div>
+        </div>
+
+        <!-- TOOLS PANEL (right) -->
+        <div class="tools-panel">
+          <div class="tools-header">INVESTIGATION TOOLS</div>
+
+          <!-- Evidence files -->
+          <div class="tool-section">
+            <button class="tool-btn" id="tool-evidence" data-tool="evidence">
+              <span class="tool-icon">&#128194;</span>
+              <span class="tool-name">EVIDENCE FILES</span>
+              <span class="tool-desc">14 classified documents</span>
+            </button>
+          </div>
+
+          <!-- Mustache Forensics -->
+          <div class="tool-section">
+            <button class="tool-btn" id="tool-forensics" data-tool="forensics">
+              <span class="tool-icon">&#128269;</span>
+              <span class="tool-name">MUSTACHE FORENSICS</span>
+              <span class="tool-desc">Side-by-side analysis</span>
+            </button>
+          </div>
+
+          <!-- Defense Layers -->
+          <div class="tool-section">
+            <button class="tool-btn" id="tool-defense" data-tool="defense">
+              <span class="tool-icon">&#128737;</span>
+              <span class="tool-name">DEFENSE PROTOCOLS</span>
+              <span class="tool-desc">How the conspiracy defends itself</span>
+            </button>
+          </div>
+
+          <!-- Your Dossier -->
+          <div class="tool-section">
+            <button class="tool-btn" id="tool-dossier" data-tool="dossier">
+              <span class="tool-icon">&#128196;</span>
+              <span class="tool-name">YOUR DOSSIER</span>
+              <span class="tool-desc">The file we're building on you</span>
+            </button>
+          </div>
+
+          <!-- Share / Transmit -->
+          <div class="tool-section">
+            <button class="tool-btn" id="tool-share" data-tool="share">
+              <span class="tool-icon">&#128225;</span>
+              <span class="tool-name">TRANSMIT FINDINGS</span>
+              <span class="tool-desc">Spread the investigation</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETAIL PANEL (slides over) -->
+      <div id="detail-panel" class="detail-panel" style="display: none">
+        <div class="detail-header">
+          <h3 class="detail-title" id="detail-title"></h3>
+          <button class="detail-close" id="detail-close">&times;</button>
+        </div>
+        <div class="detail-body" id="detail-body"></div>
+      </div>
+    </section>
+
+    <!-- Popup container -->
+    <div id="popup-container" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/evidence.js"></script>
+    <script src="js/secrets.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>

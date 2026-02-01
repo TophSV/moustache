@@ -1,0 +1,269 @@
+/* ============================================================
+   MOUSTACHE — Conspiracy Mode (Layer 3)
+   Cork board, red strings, classified stamps, full paranoia
+   ============================================================ */
+
+/* ---- CONSPIRACY MODE BODY ---- */
+body.conspiracy-mode {
+  /* Cork board texture via layered gradients */
+  background:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(90, 50, 20, 0.3) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse at 80% 30%,
+      rgba(60, 30, 10, 0.3) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #2a1808 0%, #1a0c04 50%, #120802 100%);
+}
+
+body.conspiracy-mode::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 80px,
+      rgba(204, 32, 32, 0.03) 80px,
+      rgba(204, 32, 32, 0.03) 81px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 80px,
+      rgba(204, 32, 32, 0.03) 80px,
+      rgba(204, 32, 32, 0.03) 81px
+    );
+}
+
+/* ---- CLASSIFIED STAMP on title ---- */
+body.conspiracy-mode .title-heading::after {
+  content: "CLASSIFIED";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  font-family: var(--font-display);
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 900;
+  color: rgba(204, 32, 32, 0.2);
+  letter-spacing: 0.2em;
+  border: 6px double rgba(204, 32, 32, 0.2);
+  padding: 8px 24px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+body.conspiracy-mode .title-heading {
+  position: relative;
+}
+
+/* ---- LAYER BADGE CHANGES ---- */
+body.conspiracy-mode #layer-badge .hud-value {
+  color: var(--red-string);
+  animation: blink 1.5s steps(1) infinite;
+}
+
+/* ---- SCORE TRANSFORMS TO TRUTH RATING ---- */
+body.conspiracy-mode #score-label {
+  color: var(--red-string);
+}
+
+/* ---- BUTTON CORRUPTION ---- */
+body.conspiracy-mode .btn-answer {
+  border-color: rgba(204, 32, 32, 0.4);
+}
+
+body.conspiracy-mode .btn-answer:hover {
+  border-color: var(--red-string);
+  box-shadow: 0 4px 20px rgba(204, 32, 32, 0.2);
+}
+
+body.conspiracy-mode .btn-answer::before {
+  background: linear-gradient(
+    180deg,
+    rgba(204, 32, 32, 0.08) 0%,
+    transparent 100%
+  );
+}
+
+/* ---- POLAROID IN CONSPIRACY MODE ---- */
+body.conspiracy-mode .polaroid {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(204, 32, 32, 0.1);
+}
+
+body.conspiracy-mode .polaroid-caption {
+  color: var(--red-string);
+  font-family: var(--font-data);
+}
+
+/* ---- HINT AREA IN CONSPIRACY ---- */
+body.conspiracy-mode .hint-area {
+  color: var(--red-string);
+  font-family: var(--font-data);
+  letter-spacing: 0.1em;
+}
+
+/* ---- INTERMISSION IN CONSPIRACY ---- */
+body.conspiracy-mode .intel-stamp {
+  color: var(--red-string);
+}
+
+body.conspiracy-mode .intel-card {
+  border-color: var(--red-string);
+  background:
+    linear-gradient(160deg, rgba(204, 32, 32, 0.05) 0%, transparent 100%),
+    var(--bg-card);
+}
+
+body.conspiracy-mode .intel-type {
+  color: var(--red-string);
+  animation: blink 2s steps(1) infinite;
+}
+
+body.conspiracy-mode .intel-source {
+  color: var(--red-string);
+  opacity: 0.7;
+}
+
+body.conspiracy-mode .progress-fill {
+  background: var(--red-string);
+}
+
+body.conspiracy-mode #continue-text {
+  letter-spacing: 0.15em;
+}
+
+/* ---- RED STRING SVG OVERLAY ---- */
+.red-strings-svg {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+body.conspiracy-mode .red-strings-svg {
+  opacity: 1;
+}
+
+.red-string-line {
+  stroke: var(--red-string);
+  stroke-width: 1;
+  fill: none;
+  opacity: 0.4;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawString 2s ease forwards;
+}
+
+@keyframes drawString {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.red-string-pin {
+  fill: var(--red-string);
+  filter: drop-shadow(0 0 4px rgba(204, 32, 32, 0.5));
+}
+
+/* ---- LOADING TEXT CONSPIRACY MODE ---- */
+body.conspiracy-mode .loading-text {
+  color: var(--red-string);
+  font-family: var(--font-data);
+  letter-spacing: 0.08em;
+}
+
+body.conspiracy-mode .loading-spinner {
+  border-color: rgba(204, 32, 32, 0.2);
+  border-top-color: var(--red-string);
+}
+
+/* ---- HEADER CORRUPTION ---- */
+body.conspiracy-mode #mustache-icon {
+  color: var(--red-string);
+  opacity: 0.8;
+  animation: stacheGlitch 4s ease-in-out infinite;
+}
+
+@keyframes stacheGlitch {
+  0%,
+  90%,
+  100% {
+    transform: none;
+  }
+  92% {
+    transform: translateX(-2px) skewX(-2deg);
+  }
+  94% {
+    transform: translateX(1px) skewX(1deg);
+  }
+  96% {
+    transform: translateX(-1px);
+  }
+  98% {
+    transform: none;
+  }
+}
+
+/* ---- FOOTER CLASSIFICATION CHANGE ---- */
+body.conspiracy-mode .footer-classification {
+  color: var(--red-string);
+  opacity: 1;
+}
+
+body.conspiracy-mode .footer-classification::after {
+  content: " [REVOKED]";
+  animation: blink 1s steps(1) infinite;
+}
+
+/* ---- COPIED TOAST ---- */
+.copied-toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: var(--font-data);
+  font-size: 14px;
+  padding: 10px 24px;
+  letter-spacing: 0.1em;
+  z-index: 1000;
+  animation:
+    toastIn 0.3s ease both,
+    toastOut 0.3s ease 2s both;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

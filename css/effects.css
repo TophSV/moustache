@@ -1,0 +1,398 @@
+/* ============================================================
+   MOUSTACHE — VHS / Glitch / Corruption Effects
+   All driven by --corruption (0 → 1)
+   ============================================================ */
+
+/* ---- VHS SCAN LINES ---- */
+#vhs-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  opacity: calc(var(--corruption) * 0.6);
+  transition: opacity 1s ease;
+  mix-blend-mode: multiply;
+}
+
+/* ---- FILM GRAIN ---- */
+#grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 899;
+  pointer-events: none;
+  opacity: calc(0.03 + var(--corruption) * 0.08);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grainShift 0.3s steps(3) infinite;
+}
+
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-2px, 1px);
+  }
+  66% {
+    transform: translate(1px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ---- GLITCH OVERLAY ---- */
+#glitch-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 910;
+  pointer-events: none;
+  opacity: 0;
+  background: transparent;
+}
+
+/* ---- GLITCH CLASS (applied to body) ---- */
+body.glitching #glitch-overlay {
+  animation: glitchFlash 0.2s steps(2) 1;
+}
+
+body.glitching .polaroid-inner img {
+  animation: glitchImage 0.2s steps(2) 1;
+}
+
+body.glitching .game-hud {
+  animation: glitchShift 0.15s steps(3) 1;
+}
+
+@keyframes glitchFlash {
+  0% {
+    opacity: 1;
+    background: rgba(204, 32, 32, 0.08);
+    clip-path: inset(30% 0 40% 0);
+  }
+  25% {
+    opacity: 1;
+    background: rgba(32, 204, 204, 0.05);
+    clip-path: inset(60% 0 10% 0);
+  }
+  50% {
+    opacity: 1;
+    background: rgba(204, 32, 32, 0.1);
+    clip-path: inset(10% 0 70% 0);
+  }
+  75% {
+    opacity: 0;
+    background: transparent;
+    clip-path: inset(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitchImage {
+  0% {
+    transform: translateX(-4px) skewX(-1deg);
+    filter: hue-rotate(40deg);
+  }
+  25% {
+    transform: translateX(3px) skewX(0.5deg);
+    filter: hue-rotate(-20deg);
+  }
+  50% {
+    transform: translateX(-2px);
+    filter: saturate(2);
+  }
+  75% {
+    transform: translateX(1px);
+    filter: none;
+  }
+  100% {
+    transform: translateX(0);
+    filter: none;
+  }
+}
+
+@keyframes glitchShift {
+  0% {
+    transform: translateX(-3px);
+  }
+  33% {
+    transform: translateX(2px) skewX(0.5deg);
+  }
+  66% {
+    transform: translateX(-1px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ---- VHS TRACKING DISTORTION ---- */
+body.vhs-tracking .polaroid {
+  animation: vhsTrack 0.4s steps(4) 1;
+}
+
+@keyframes vhsTrack {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+  20% {
+    transform: translateX(calc(var(--corruption) * 12px))
+      skewX(calc(var(--corruption) * 3deg));
+  }
+  40% {
+    transform: translateX(calc(var(--corruption) * -8px))
+      skewX(calc(var(--corruption) * -2deg));
+  }
+  60% {
+    transform: translateX(calc(var(--corruption) * 5px))
+      skewX(calc(var(--corruption) * 1deg));
+  }
+  80% {
+    transform: translateX(calc(var(--corruption) * -2px));
+  }
+  100% {
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
+/* ---- SCREEN FLICKER ---- */
+body.flickering {
+  animation: screenFlicker 0.15s steps(2) 1;
+}
+
+@keyframes screenFlicker {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ---- CORRUPTION-DRIVEN CONTINUOUS EFFECTS ---- */
+
+/* Score text glitch at high corruption */
+.hud-score .hud-value {
+  text-shadow:
+    calc(var(--corruption) * 2px) 0 0
+      rgba(204, 32, 32, calc(var(--corruption) * 0.5)),
+    calc(var(--corruption) * -2px) 0 0
+      rgba(32, 204, 204, calc(var(--corruption) * 0.3));
+  transition: text-shadow 1s ease;
+}
+
+/* Photo color aberration at medium+ corruption */
+.polaroid-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(204, 32, 32, calc(var(--corruption) * 0.1)) 0%,
+    transparent 50%,
+    rgba(32, 32, 204, calc(var(--corruption) * 0.08)) 100%
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+/* Button border flicker at high corruption */
+.btn-answer {
+  border-color: var(--amber-dim);
+  transition: border-color 0.3s;
+}
+
+/* ---- CONSPIRACY POPUP ---- */
+.conspiracy-popup {
+  position: fixed;
+  z-index: 950;
+  background: #1a1008;
+  border: 2px solid var(--red-string);
+  box-shadow:
+    inset 0 0 0 1px #2a1f10,
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(204, 32, 32, 0.15);
+  max-width: 360px;
+  width: 90vw;
+  font-family: var(--font-data);
+  animation: popupIn 0.3s ease both;
+}
+
+.conspiracy-popup.dismissing {
+  animation: popupOut 0.3s ease both;
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes popupOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.popup-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: var(--red-string);
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.popup-close {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-body {
+  padding: 16px;
+  font-size: 14px;
+  color: var(--cream);
+  line-height: 1.5;
+}
+
+/* ---- TEXT SCRAMBLE ---- */
+.scrambling {
+  animation: textScrambleGlow 0.1s steps(1) infinite;
+}
+
+@keyframes textScrambleGlow {
+  0% {
+    color: var(--amber-light);
+  }
+  50% {
+    color: var(--red-string);
+  }
+  100% {
+    color: var(--amber-light);
+  }
+}
+
+/* ---- TRUTH FLASH (Konami code) ---- */
+.truth-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: truthFlashAnim 1.5s ease both;
+}
+
+.truth-flash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--red-string);
+  animation: truthBgFlash 1.5s steps(6) both;
+}
+
+@keyframes truthBgFlash {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.truth-flash-text {
+  position: relative;
+  font-family: var(--font-data);
+  font-size: clamp(24px, 6vw, 56px);
+  color: white;
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-shadow: 0 0 40px rgba(204, 32, 32, 0.8);
+  animation: truthTextPulse 1.5s ease both;
+}
+
+@keyframes truthTextPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes truthFlashAnim {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
