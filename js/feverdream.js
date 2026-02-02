@@ -854,26 +854,37 @@ const FeverDream = {
       },
     },
 
-    // ========== BEAT 19: THE RETIREMENT ==========
+    // ========== BEAT 19: THE CONVERGENCE ==========
     {
       corruption: 0.93,
       truth: 7,
       async render(stage, next) {
         stage.innerHTML = "";
         const card = makeEl("div", "fever-evidence");
-        const title = makeEl("div", "fever-evidence-title", "THE RETIREMENT");
+        const title = makeEl("div", "fever-evidence-title", "THE CONVERGENCE");
         card.appendChild(title);
         stage.appendChild(card);
         await dramaticPause(500);
-        const died = makeEl("div", "fever-huge");
-        died.innerHTML =
-          'Burt Reynolds <span class="fever-highlight fever-vibrate">"died"</span>';
-        card.appendChild(died);
+        const line1 = makeEl("div", "fever-evidence-text");
+        card.appendChild(line1);
+        await typeText(
+          line1,
+          "In 2018, there was no longer any need for two identities.",
+          40,
+        );
+        await dramaticPause(1500);
+        const big = makeEl("div", "fever-huge");
+        big.textContent = "The covers were consolidated.";
+        card.appendChild(big);
         await dramaticPause(2000);
-        const decomm = makeEl("div", "fever-evidence-text");
-        card.appendChild(decomm);
-        await typeText(decomm, "The older identity was decommissioned.", 40);
-        await dramaticPause(1000);
+        const line3 = makeEl("div", "fever-evidence-text fever-text-dim");
+        card.appendChild(line3);
+        await typeText(line3, "One identity retired. One remained.", 40);
+        await dramaticPause(800);
+        const line4 = makeEl("div", "fever-evidence-text fever-text-dim");
+        card.appendChild(line4);
+        await typeText(line4, "Ask yourself: which one is still here?", 40);
+        await dramaticPause(1500);
         // Word by word
         const words = "The mission continues under a single cover.".split(" ");
         const finale = makeEl("div", "fever-evidence-sub fever-big");
@@ -980,6 +991,17 @@ const FeverDream = {
         const label = makeEl("div", "fever-finale-label", Game.getTruthLabel());
         wrap.appendChild(label);
         await dramaticPause(1000);
+        // Credits
+        const credits = makeEl("div", "fever-finale-credits");
+        const starring = makeEl("div", "fever-finale-starring", "Starring");
+        credits.appendChild(starring);
+        wrap.appendChild(credits);
+        await dramaticPause(800);
+        const names = makeEl("div", "fever-finale-names");
+        names.innerHTML =
+          '<span class="fever-finale-name">BURT SELLECK</span><span class="fever-finale-name">TOM REYNOLDS</span>';
+        credits.appendChild(names);
+        await dramaticPause(2000);
         const line = makeEl(
           "div",
           "fever-text-dim",

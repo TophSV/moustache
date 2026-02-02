@@ -300,6 +300,38 @@ const Game = {
     document.getElementById("quiz-result").style.display = "none";
   },
 
+  // Track used foreshadow messages
+  usedForeshadows: [],
+
+  showForeshadow(callback) {
+    // Pick unused foreshadow message
+    if (this.usedForeshadows.length >= FORESHADOW_FLASHES.length) {
+      this.usedForeshadows = [];
+    }
+    const available = FORESHADOW_FLASHES.filter(
+      (f) => !this.usedForeshadows.includes(f),
+    );
+    const msg = available[Math.floor(Math.random() * available.length)];
+    this.usedForeshadows.push(msg);
+
+    const overlay = document.createElement("div");
+    overlay.className = "quiz-foreshadow";
+    overlay.textContent = msg;
+    document.body.appendChild(overlay);
+    Effects.triggerGlitch();
+
+    // Fade in
+    requestAnimationFrame(() => (overlay.style.opacity = "1"));
+    // Hold then fade out
+    setTimeout(() => {
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        overlay.remove();
+        callback();
+      }, 300);
+    }, 900);
+  },
+
   submitAnswer(guess) {
     // Disable buttons
     document
@@ -307,9 +339,10 @@ const Game = {
       .forEach((b) => (b.disabled = true));
 
     const data = this.state.quizPhotos[this.state.round - 1];
+    const isImpostor = data.type === "impostor";
     const isCorrect = guess === data.answer;
 
-    if (isCorrect) {
+    if (isImpostor || isCorrect) {
       this.state.score++;
       Audio.playCorrect();
     } else {
@@ -319,7 +352,7 @@ const Game = {
     this.state.answers.push({
       round: this.state.round,
       guess,
-      correct: isCorrect,
+      correct: isImpostor || isCorrect,
       actual: data.answer,
     });
 
@@ -327,11 +360,22 @@ const Game = {
     const resultEl = document.getElementById("quiz-result");
     const iconEl = document.getElementById("result-icon");
     const textEl = document.getElementById("result-text");
+    const subEl = document.getElementById("result-subtext");
 
     resultEl.style.display = "";
     document.getElementById("quiz-photo").style.display = "none";
+    subEl.textContent = "";
+    subEl.style.display = "none";
 
-    if (isCorrect) {
+    if (isImpostor) {
+      iconEl.textContent = "\u2713";
+      textEl.textContent = "CORRECT... TECHNICALLY";
+      resultEl.className = "quiz-result result-impostor";
+      if (data.joke) {
+        subEl.textContent = data.joke;
+        subEl.style.display = "";
+      }
+    } else if (isCorrect) {
       iconEl.textContent = "\u2713";
       textEl.textContent = "CORRECT";
       resultEl.className = "quiz-result result-correct";
@@ -347,7 +391,18 @@ const Game = {
 
     this.updateHUD();
 
-    setTimeout(() => this.nextRound(), 1800);
+    const resultDelay = isImpostor ? 3500 : 1800;
+    const round = this.state.round;
+
+    setTimeout(() => {
+      // Foreshadow flash logic: skip round 1, 40% rounds 2-3, guaranteed 4+
+      const shouldFlash = round > 1 && (round >= 4 || Math.random() < 0.4);
+      if (shouldFlash) {
+        this.showForeshadow(() => this.nextRound());
+      } else {
+        this.nextRound();
+      }
+    }, resultDelay);
   },
 
   updateHUD() {

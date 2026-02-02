@@ -367,6 +367,7 @@ const PHOTO_DATA = [
     era: "2012",
     desc: "Subject photographed, 2012",
     hint: "The voice of beef",
+    joke: "That's Sam Elliott. But honestly, at this point, does it matter?",
     difficulty: 3,
   },
   {
@@ -376,6 +377,7 @@ const PHOTO_DATA = [
     era: "1966",
     desc: "Studio portrait, 1966",
     hint: "Death Wish was just the beginning",
+    joke: "That's Charles Bronson. The mustache reassignment program runs deep.",
     difficulty: 3,
   },
   {
@@ -385,6 +387,7 @@ const PHOTO_DATA = [
     era: "1970s",
     desc: "Press photograph, 1970s",
     hint: "Opened a vault on live television. It was empty.",
+    joke: "That's Geraldo Rivera. The vault was empty. The mustache was not.",
     difficulty: 3,
   },
   {
@@ -394,6 +397,7 @@ const PHOTO_DATA = [
     era: "2010s",
     desc: "University appearance",
     hint: "All the wood in Pawnee couldn't build this mustache",
+    joke: "That's Nick Offerman. The Pawnee branch of the mustache.",
     difficulty: 3,
   },
   {
@@ -403,6 +407,7 @@ const PHOTO_DATA = [
     era: "1977",
     desc: "Concert photograph, 1977",
     hint: "Wanted to break free. The mustache wouldn't let him.",
+    joke: "That's Freddie Mercury. Even the mustache wanted to break free.",
     difficulty: 3,
   },
   {
@@ -412,6 +417,7 @@ const PHOTO_DATA = [
     era: "2000s",
     desc: "Portrait",
     hint: "If your mustache has its own Wikipedia page...",
+    joke: "That's Jeff Foxworthy. If your mustache has clearance level 5...",
     difficulty: 3,
   },
   {
@@ -421,6 +427,7 @@ const PHOTO_DATA = [
     era: "2000s",
     desc: "Portrait photograph",
     hint: "Went from Chicago PD to Law & Order. The mustache transferred.",
+    joke: "That's Dennis Farina. Chicago PD never closed the mustache case.",
     difficulty: 3,
   },
   {
@@ -430,6 +437,7 @@ const PHOTO_DATA = [
     era: "1990s",
     desc: "Military event photograph",
     hint: "The answer is: this man's mustache. What is: classified.",
+    joke: "That's Alex Trebek. The answer was always: the same mustache.",
     difficulty: 3,
   },
   {
@@ -439,8 +447,24 @@ const PHOTO_DATA = [
     era: "1976",
     desc: "TV publicity still, 1976",
     hint: "Welcome Back, Mustache",
+    joke: "That's Gabe Kaplan. Welcome back, mustache.",
     difficulty: 3,
   },
+];
+
+const FORESHADOW_FLASHES = [
+  "THE QUIZ IS NOT THE POINT",
+  "WHY DO THEY HAVE THE SAME MUSTACHE",
+  "YOU'RE NOT ASKING THE RIGHT QUESTIONS",
+  "HAVE YOU EVER SEEN THEM TOGETHER",
+  "THE TRUTH IS IN THE FOLLICLES",
+  "THIS IS BIGGER THAN A QUIZ",
+  "SOMEONE DOESN'T WANT YOU TO FINISH THIS",
+  "THE MUSTACHE PREDATES BOTH OF THEM",
+  "KEEP GOING. THEY'RE WATCHING.",
+  "WHAT IF THE ANSWER IS ALWAYS THE SAME",
+  "CLASSIFIED: MUSTACHE CONTINUITY PROJECT",
+  "THE RIDE ISN'T OVER",
 ];
 
 const LOADING_MESSAGES = [

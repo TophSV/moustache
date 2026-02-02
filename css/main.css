@@ -582,6 +582,54 @@ body::before {
 .result-wrong .result-text {
   color: var(--red);
 }
+.result-impostor .result-icon {
+  color: var(--amber);
+}
+.result-impostor .result-text {
+  color: var(--amber);
+}
+
+.result-subtext {
+  font-family: var(--font-typewriter);
+  font-size: clamp(12px, 1.5vw, 14px);
+  color: rgba(245, 230, 208, 0.6);
+  text-align: center;
+  max-width: 380px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+/* Foreshadow flash overlay */
+.quiz-foreshadow {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  font-family: var(--font-typewriter);
+  font-size: clamp(16px, 3vw, 28px);
+  color: var(--red);
+  letter-spacing: 0.15em;
+  text-align: center;
+  padding: 40px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  text-shadow: 0 0 20px rgba(204, 32, 32, 0.5);
+  animation: foreshadowFlicker 0.15s ease infinite alternate;
+}
+
+@keyframes foreshadowFlicker {
+  from {
+    opacity: 0.85;
+    text-shadow: 0 0 20px rgba(204, 32, 32, 0.5);
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 0 30px rgba(204, 32, 32, 0.8);
+  }
+}
 
 /* ---- THE TURN ---- */
 .turn-content {
