@@ -1383,7 +1383,7 @@ const FeverDream = {
           Audio.playReveal();
           await dramaticPause(2500);
           const sub = makeEl("div", "fever-text-dim");
-          sub.textContent = "Or the other way around. Nobody can tell.";
+          sub.innerHTML = "Or the other way around.<br>Nobody can tell.";
           card.appendChild(sub);
           await dramaticPause(2500);
         });
@@ -1439,12 +1439,36 @@ const FeverDream = {
         );
         shareWrap.appendChild(shareLabel);
 
+        // Collect impostor rounds for dynamic share texts
+        const impostorRounds = [];
+        (Game.state.quizPhotos || []).forEach((photo, i) => {
+          if (
+            photo.type === "impostor" &&
+            photo.name &&
+            Game.state.answers[i]
+          ) {
+            const guess = Game.state.answers[i].guess;
+            const guessName = guess === "selleck" ? "Tom" : "Burt";
+            impostorRounds.push({ name: photo.name, said: guessName });
+          }
+        });
+
         // Build share card with refresh
         let usedIndices = [];
         const buildShareCard = () => {
-          const eligible = SHARE_TEXTS.filter(
-            (s) => !s.requires || s.requires === Game.state.believeChoice,
-          );
+          const eligible = [];
+          for (const s of SHARE_TEXTS) {
+            if (s.requires && s.requires !== Game.state.believeChoice) continue;
+            if (s.dynamic === "impostor") {
+              for (const imp of impostorRounds) {
+                eligible.push({
+                  text: `They showed me a photo of ${imp.name} and asked if it was Tom Selleck or Burt Reynolds. I said ${imp.said}. It counted. My Truth Rating is [RATING].\n\nhttps://moustache.wtf`,
+                });
+              }
+            } else {
+              eligible.push(s);
+            }
+          }
           if (usedIndices.length >= eligible.length) usedIndices = [];
           let idx;
           do {

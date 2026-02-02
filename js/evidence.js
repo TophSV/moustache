@@ -257,9 +257,29 @@ const Investigation = {
     const rating = Game.getTruthLabel();
     const time = Game.getTimeString();
 
-    SHARE_TEXTS.filter(
-      (s) => !s.requires || s.requires === Game.state.believeChoice,
-    ).forEach((entry) => {
+    // Expand dynamic impostor entries
+    const impostorRounds = [];
+    (Game.state.quizPhotos || []).forEach((photo, i) => {
+      if (photo.type === "impostor" && photo.name && Game.state.answers[i]) {
+        const guess = Game.state.answers[i].guess;
+        const guessName = guess === "selleck" ? "Tom" : "Burt";
+        impostorRounds.push({ name: photo.name, said: guessName });
+      }
+    });
+    const expandedTexts = [];
+    for (const s of SHARE_TEXTS) {
+      if (s.requires && s.requires !== Game.state.believeChoice) continue;
+      if (s.dynamic === "impostor") {
+        for (const imp of impostorRounds) {
+          expandedTexts.push({
+            text: `They showed me a photo of ${imp.name} and asked if it was Tom Selleck or Burt Reynolds. I said ${imp.said}. It counted. My Truth Rating is [RATING].\n\nhttps://moustache.wtf`,
+          });
+        }
+      } else {
+        expandedTexts.push(s);
+      }
+    }
+    expandedTexts.forEach((entry) => {
       const text = entry.text
         .replace("[TIME]", time)
         .replace("[RATING]", rating);
