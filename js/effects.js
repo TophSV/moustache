@@ -79,7 +79,7 @@ const Effects = {
 
     const messages = [
       "WARNING: Facial pattern match exceeds 94.7%",
-      "ALERT: Mustache curvature deviation within margin of error",
+      "ALERT: Moustache curvature deviation within margin of error",
       'SYSTEM: Two "separate" SAG registrations detected for same biometric profile',
       "ERROR: Cannot reconcile two identities with single follicle pattern",
       "NOTICE: Your participation in this investigation has been logged",

@@ -29,7 +29,7 @@ const PHOTO_DATA = [
     type: "real",
     era: "2014",
     desc: "PaleyFest panel, 2014",
-    hint: "His mustache was once insured by a TV network",
+    hint: "His moustache was once insured by a TV network",
     difficulty: 1,
   },
   {
@@ -110,7 +110,7 @@ const PHOTO_DATA = [
     type: "real",
     era: "1988",
     desc: "Press photo, 1988",
-    hint: "6 feet 4 inches of American mustache",
+    hint: "6 feet 4 inches of American moustache",
     difficulty: 2,
   },
   {
@@ -146,7 +146,7 @@ const PHOTO_DATA = [
     type: "real",
     era: "2000s",
     desc: "Candid photo",
-    hint: "The mustache has its own fan pages",
+    hint: "The moustache has its own fan pages",
     difficulty: 3,
   },
   {
@@ -155,7 +155,7 @@ const PHOTO_DATA = [
     type: "real",
     era: "2000s",
     desc: "Appearance photo",
-    hint: "His contract required the mustache stay",
+    hint: "His contract required the moustache stay",
     difficulty: 3,
   },
   {
@@ -164,7 +164,7 @@ const PHOTO_DATA = [
     type: "real",
     era: "2000s",
     desc: "Event photo",
-    hint: "Endorsed by the National Mustache Institute",
+    hint: "Endorsed by the National Moustache Institute",
     difficulty: 3,
   },
   {
@@ -355,7 +355,7 @@ const PHOTO_DATA = [
     type: "real",
     era: "1961",
     desc: "Angel Baby, 1961",
-    hint: "His first film role — before the mustache",
+    hint: "His first film role — before the moustache",
     difficulty: 3,
   },
 
@@ -367,7 +367,7 @@ const PHOTO_DATA = [
     era: "2012",
     desc: "Subject photographed, 2012",
     hint: "The voice of beef",
-    joke: "The mustache matched. That's all that matters.",
+    joke: "The moustache matched. That's all that matters.",
     difficulty: 3,
   },
   {
@@ -396,8 +396,8 @@ const PHOTO_DATA = [
     type: "impostor",
     era: "2010s",
     desc: "University appearance",
-    hint: "All the wood in Pawnee couldn't build this mustache",
-    joke: "The mustache is correct. The man behind it is... irrelevant.",
+    hint: "All the wood in Pawnee couldn't build this moustache",
+    joke: "The moustache is correct. The man behind it is... irrelevant.",
     difficulty: 3,
   },
   {
@@ -406,7 +406,7 @@ const PHOTO_DATA = [
     type: "impostor",
     era: "1977",
     desc: "Concert photograph, 1977",
-    hint: "Wanted to break free. The mustache wouldn't let him.",
+    hint: "Wanted to break free. The moustache wouldn't let him.",
     joke: "You hesitated. That's interesting.",
     difficulty: 3,
   },
@@ -416,7 +416,7 @@ const PHOTO_DATA = [
     type: "impostor",
     era: "2000s",
     desc: "Portrait",
-    hint: "If your mustache has its own Wikipedia page...",
+    hint: "If your moustache has its own Wikipedia page...",
     joke: "Correct is correct. Don't overthink it.",
     difficulty: 3,
   },
@@ -426,8 +426,8 @@ const PHOTO_DATA = [
     type: "impostor",
     era: "2000s",
     desc: "Portrait photograph",
-    hint: "Went from Chicago PD to Law & Order. The mustache transferred.",
-    joke: "The eyes were wrong but the mustache was right. Move on.",
+    hint: "Went from Chicago PD to Law & Order. The moustache transferred.",
+    joke: "The eyes were wrong but the moustache was right. Move on.",
     difficulty: 3,
   },
   {
@@ -436,7 +436,7 @@ const PHOTO_DATA = [
     type: "impostor",
     era: "1990s",
     desc: "Military event photograph",
-    hint: "The answer is: this man's mustache. What is: classified.",
+    hint: "The answer is: this man's moustache. What is: classified.",
     joke: "You got it right. Why does it feel like you didn't?",
     difficulty: 3,
   },
@@ -446,7 +446,7 @@ const PHOTO_DATA = [
     type: "impostor",
     era: "1976",
     desc: "TV publicity still, 1976",
-    hint: "Welcome Back, Mustache",
+    hint: "Welcome Back, Moustache",
     joke: "That one didn't look like either of them. But it did, didn't it?",
     difficulty: 3,
   },
@@ -454,16 +454,16 @@ const PHOTO_DATA = [
 
 // Pre-answer intrusions — short, jarring, cuts in right after you click
 const FORESHADOW_PRE = [
-  "WHY DO THEY HAVE THE SAME MUSTACHE",
+  "WHY DO THEY HAVE THE SAME MOUSTACHE",
   "HAVE YOU EVER SEEN THEM TOGETHER",
   "THE TRUTH IS IN THE FOLLICLES",
   "LOOK CLOSER",
-  "THE MUSTACHE NEVER CHANGES",
+  "THE MOUSTACHE NEVER CHANGES",
   "SAME FACE. SAME FACE. SAME FACE.",
   "WHO TOLD YOU THERE WERE TWO OF THEM",
   "THE ANSWER DOESN'T MATTER",
   "YOU ALREADY KNOW",
-  "COUNT THE MUSTACHES",
+  "COUNT THE MOUSTACHES",
 ];
 
 // Post-answer intrusions — longer, the full vision, burns in and holds
@@ -472,18 +472,18 @@ const FORESHADOW_POST = [
   "YOU'RE NOT ASKING THE RIGHT QUESTIONS",
   "THIS IS BIGGER THAN A QUIZ",
   "SOMEONE DOESN'T WANT YOU TO FINISH THIS",
-  "THE MUSTACHE PREDATES BOTH OF THEM",
+  "THE MOUSTACHE PREDATES BOTH OF THEM",
   "KEEP GOING. THEY'RE WATCHING.",
   "WHAT IF THE ANSWER IS ALWAYS THE SAME",
-  "CLASSIFIED: MUSTACHE CONTINUITY PROJECT",
+  "CLASSIFIED: MOUSTACHE CONTINUITY PROJECT",
   "THE RIDE ISN'T OVER",
-  "THERE IS NO QUIZ. THERE IS ONLY THE MUSTACHE.",
+  "THERE IS NO QUIZ. THERE IS ONLY THE MOUSTACHE.",
   "EVERY ANSWER IS CORRECT. THAT'S THE PROBLEM.",
   "YOU WERE CHOSEN FOR THIS INVESTIGATION",
 ];
 
 const LOADING_MESSAGES = [
-  "Consulting mustache database...",
+  "Consulting moustache database...",
   "Cross-referencing jawlines...",
   "Analyzing chest hair density...",
   "Checking Hawaiian shirt registry...",
@@ -546,7 +546,7 @@ const EVIDENCE_FACTS = [
   {
     id: "transam",
     title: "THE TRANS AM",
-    text: "Both subjects are iconically associated with the Pontiac Trans Am. The same car. The same mustache. The same era. Coincidence has a mathematical limit.",
+    text: "Both subjects are iconically associated with the Pontiac Trans Am. The same car. The same moustache. The same era. Coincidence has a mathematical limit.",
     source: "Automotive and film cross-reference",
     category: "evidence",
     truthBoost: 3,
@@ -576,9 +576,9 @@ const EVIDENCE_FACTS = [
     truthBoost: 4,
   },
   {
-    id: "mustache",
+    id: "moustache",
     title: "THE FOLLICLE IMPOSSIBILITY",
-    text: "Independent forensic analysis of mustache curvature, density, and growth patterns shows a deviation of 0.6%. The probability of two unrelated mustaches matching to this degree: 1 in 847 million.",
+    text: "Independent forensic analysis of moustache curvature, density, and growth patterns shows a deviation of 0.6%. The probability of two unrelated moustaches matching to this degree: 1 in 847 million.",
     source: "Institute of Forensic Faciology",
     category: "forensic",
     truthBoost: 7,
@@ -609,7 +609,7 @@ const EVIDENCE_FACTS = [
   },
 ];
 
-const MUSTACHE_ANALYSIS = {
+const MOUSTACHE_ANALYSIS = {
   curvature: { s: 87.3, r: 87.9, label: "Curvature Index", unit: "°/cm" },
   density: { s: 94.1, r: 93.8, label: "Follicle Density", unit: "f/cm²" },
   symmetry: { s: 96.2, r: 96.7, label: "Bilateral Symmetry", unit: "%" },
@@ -655,7 +655,7 @@ const DEFENSE_LAYERS = [
     name: "REALITY DISSOLUTION",
     trigger: "There is no such thing as Tom Selleck and Burt Reynolds.",
     response:
-      'You\'re suffering from a mustache-specific perceptual disorder brought on by prolonged exposure to thick facial hair in media. The "Selleck-Reynolds Complex" was first documented in—',
+      'You\'re suffering from a moustache-specific perceptual disorder brought on by prolonged exposure to thick facial hair in media. The "Selleck-Reynolds Complex" was first documented in—',
   },
 ];
 
@@ -682,7 +682,7 @@ const SKEPTIC_RESPONSES = [
   "That's exactly what someone who hasn't seen the evidence would say.",
   "Interesting. Your resistance is noted in the file.",
   "The fact that you need to deny it so forcefully is itself evidence.",
-  "We thought the same thing. Before we saw the mustache metrics.",
+  "We thought the same thing. Before we saw the moustache metrics.",
   "Your certainty will erode. It always does. Give it time.",
   "Check the timeline overlap. Then come back and say that again.",
   "You sound like everyone else did. Before.",
@@ -726,13 +726,13 @@ const TRUTH_RATINGS = [
   },
   {
     max: Infinity,
-    label: "THERE IS ONLY ONE MUSTACHE",
+    label: "THERE IS ONLY ONE MOUSTACHE",
     desc: "The investigation is complete. You are the evidence now.",
   },
 ];
 
 const SHARE_TEXTS = [
   "Have you ever seen Tom Selleck and Burt Reynolds in the same room? I spent [TIME] investigating. My Truth Rating went from [START_RATING] to [RATING]. I can't prove they're different people.\n\nhttps://moustache-eight.vercel.app/",
-  "I started playing this dumb mustache game to prove they're obviously two different people. [TIME] later my Truth Rating went from [START_RATING] to [RATING]. I have questions.\n\nhttps://moustache-eight.vercel.app/",
-  "My Truth Rating for the Selleck-Reynolds Investigation went from [START_RATING] to [RATING] in [TIME]. The mustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache-eight.vercel.app/",
+  "I started playing this dumb moustache game to prove they're obviously two different people. [TIME] later my Truth Rating went from [START_RATING] to [RATING]. I have questions.\n\nhttps://moustache-eight.vercel.app/",
+  "My Truth Rating for the Selleck-Reynolds Investigation went from [START_RATING] to [RATING] in [TIME]. The moustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache-eight.vercel.app/",
 ];

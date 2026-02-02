@@ -22,7 +22,7 @@ Open `index.html` in any browser. No build tools, no dependencies, no frameworks
 ## Features
 
 - 14 pieces of evidence, all based on real facts
-- Mustache forensics (99.7% match)
+- Moustache forensics (99.7% match)
 - 5 defense layers that absorb your skepticism
 - A dossier the game writes about _you_
 - VHS decay that gets worse the more you investigate

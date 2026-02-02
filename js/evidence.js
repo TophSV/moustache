@@ -29,7 +29,7 @@ const Investigation = {
         this.buildEvidenceList(body);
         break;
       case "forensics":
-        title.textContent = "MUSTACHE FORENSICS";
+        title.textContent = "MOUSTACHE FORENSICS";
         body.innerHTML = "";
         this.buildForensics(body);
         this.addDossier(DOSSIER_TEMPLATES.photoAnalyzed());
@@ -120,7 +120,7 @@ const Investigation = {
     if (this.pinnedIds.size >= 10) Effects.triggerVHSTrack();
   },
 
-  // --- MUSTACHE FORENSICS ---
+  // --- MOUSTACHE FORENSICS ---
   buildForensics(container) {
     const intro = document.createElement("p");
     intro.style.cssText =

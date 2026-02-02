@@ -144,7 +144,7 @@ const FeverDream = {
         await dramaticPause(600);
         const l2 = makeEl("div", "fever-terminal-line");
         terminal.appendChild(l2);
-        await typeText(l2, "CLEARANCE LEVEL: MUSTACHE", 30);
+        await typeText(l2, "CLEARANCE LEVEL: MOUSTACHE", 30);
         await dramaticPause(600);
         const l3 = makeEl("div", "fever-terminal-line fever-green");
         terminal.appendChild(l3);
@@ -400,7 +400,7 @@ const FeverDream = {
       },
     },
 
-    // ========== BEAT 9: MUSTACHE FORENSICS (click gate) ==========
+    // ========== BEAT 9: MOUSTACHE FORENSICS (click gate) ==========
     {
       corruption: 0.5,
       truth: 7,
@@ -409,7 +409,7 @@ const FeverDream = {
         const wrap = makeEl("div", "fever-forensics");
         const title = makeEl("div", "fever-evidence-title");
         wrap.appendChild(title);
-        Effects.scrambleText(title, "MUSTACHE FORENSICS", 600);
+        Effects.scrambleText(title, "MOUSTACHE FORENSICS", 600);
         stage.appendChild(wrap);
         await dramaticPause(800);
         const intro = makeEl(
@@ -557,7 +557,7 @@ const FeverDream = {
         const punchline = makeEl(
           "div",
           "fever-evidence-sub fever-big",
-          "If you can't tell who has the mustache, does it matter who's behind it?",
+          "If you can't tell who has the moustache, does it matter who's behind it?",
         );
         wrap.appendChild(punchline);
         Effects.triggerGlitch();
@@ -734,7 +734,7 @@ const FeverDream = {
         const lines = [
           "The same wardrobe.",
           "The same car.",
-          "The same mustache.",
+          "The same moustache.",
           "The same era.",
         ];
         for (const line of lines) {
@@ -826,7 +826,7 @@ const FeverDream = {
         wrap.appendChild(text);
         await typeText(
           text,
-          "You're suffering from a mustache-specific perceptual disorder brought on by prolonged exposure to thick facial hair in media. The ",
+          "You're suffering from a moustache-specific perceptual disorder brought on by prolonged exposure to thick facial hair in media. The ",
           18,
         );
         // Break — text starts overlapping itself
@@ -845,7 +845,11 @@ const FeverDream = {
         stage.classList.add("fever-blackout");
         Audio.playGlitch();
         await dramaticPause(2000);
-        const calm = makeEl("div", "fever-calm", "There is only one mustache.");
+        const calm = makeEl(
+          "div",
+          "fever-calm",
+          "There is only one moustache.",
+        );
         stage.appendChild(calm);
         await dramaticPause(1500);
         await waitForAnyClick(stage);
@@ -930,7 +934,7 @@ const FeverDream = {
       },
     },
 
-    // ========== BEAT 21: THERE IS ONLY ONE MUSTACHE (crescendo) ==========
+    // ========== BEAT 21: THERE IS ONLY ONE MOUSTACHE (crescendo) ==========
     {
       corruption: 1.0,
       truth: 10,
@@ -940,7 +944,7 @@ const FeverDream = {
         stage.appendChild(wrap);
         const huge = makeEl("div", "fever-finale-text");
         wrap.appendChild(huge);
-        Effects.scrambleText(huge, "THERE IS ONLY ONE MUSTACHE", 1200);
+        Effects.scrambleText(huge, "THERE IS ONLY ONE MOUSTACHE", 1200);
         Audio.playReveal();
         // Chaos
         Effects.drawRedStrings();
