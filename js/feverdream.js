@@ -984,39 +984,53 @@ const FeverDream = {
       truth: 0,
       async render(stage, next) {
         stage.innerHTML = "";
+        stage.classList.add("fever-finale-stage");
         document.body.classList.remove("screen-tilt");
         const wrap = makeEl("div", "fever-finale");
         stage.appendChild(wrap);
         await dramaticPause(500);
+
+        // Truth rating journey
         const startLabel =
           Game.state.preFeverTruthLabel || "BLISSFULLY IGNORANT";
+        const finalLabel = Game.getTruthLabel();
         const rating = makeEl("div", "fever-finale-rating");
-        rating.textContent = "Your Truth Rating: " + startLabel;
+        rating.innerHTML =
+          'Your Truth Rating: <span class="fever-rating-value">' +
+          startLabel +
+          "</span>";
         wrap.appendChild(rating);
-        await dramaticPause(1200);
-        rating.textContent = "Your Truth Rating: " + Game.getTruthLabel();
-        const label = makeEl("div", "fever-finale-label", Game.getTruthLabel());
-        wrap.appendChild(label);
-        await dramaticPause(1000);
-        // Credits
-        const credits = makeEl("div", "fever-finale-credits");
-        const starring = makeEl("div", "fever-finale-starring", "Starring");
-        credits.appendChild(starring);
-        wrap.appendChild(credits);
-        await dramaticPause(800);
-        const names = makeEl("div", "fever-finale-names");
-        names.innerHTML =
-          '<span class="fever-finale-name">BURT SELLECK</span><span class="fever-finale-name">TOM REYNOLDS</span>';
-        credits.appendChild(names);
         await dramaticPause(2000);
+        // Animate the transition
+        const valueEl = rating.querySelector(".fever-rating-value");
+        valueEl.classList.add("fever-rating-changing");
+        await dramaticPause(400);
+        valueEl.textContent = finalLabel;
+        valueEl.classList.remove("fever-rating-changing");
+        valueEl.classList.add("fever-rating-arrived");
+        Audio.playReveal();
+        await dramaticPause(1500);
+
+        // Credits — compact
+        const credits = makeEl("div", "fever-finale-credits");
+        credits.innerHTML =
+          '<div class="fever-finale-starring">Starring</div>' +
+          '<div class="fever-finale-names">' +
+          '<span class="fever-finale-name">BURT SELLECK</span>' +
+          '<span class="fever-finale-name">TOM REYNOLDS</span>' +
+          "</div>";
+        wrap.appendChild(credits);
+        await dramaticPause(1500);
+
         const line = makeEl(
           "div",
           "fever-text-dim",
           "You can't prove they're different people. You've tried.",
         );
         wrap.appendChild(line);
-        await dramaticPause(1500);
-        // Share cards
+        await dramaticPause(1000);
+
+        // Share — pick one random card
         const shareWrap = makeEl("div", "fever-share-wrap");
         wrap.appendChild(shareWrap);
         const shareLabel = makeEl(
@@ -1025,44 +1039,39 @@ const FeverDream = {
           "TRANSMIT YOUR FINDINGS",
         );
         shareWrap.appendChild(shareLabel);
-        const rating_text = Game.getTruthLabel();
-        const start_rating =
-          Game.state.preFeverTruthLabel || "BLISSFULLY IGNORANT";
+        const start_rating = startLabel;
         const time = Game.getTimeString();
-        SHARE_TEXTS.forEach((template) => {
-          const text = template
-            .replace("[TIME]", time)
-            .replace("[START_RATING]", start_rating)
-            .replace("[RATING]", rating_text);
-          const card = makeEl("div", "fever-share-card", text);
-          card.addEventListener("click", () => {
-            navigator.clipboard.writeText(text).then(() => {
-              card.textContent = "COPIED — TRANSMISSION INITIATED";
-              card.classList.add("fever-copied");
-            });
+        const template =
+          SHARE_TEXTS[Math.floor(Math.random() * SHARE_TEXTS.length)];
+        const text = template
+          .replace("[TIME]", time)
+          .replace("[START_RATING]", start_rating)
+          .replace("[RATING]", finalLabel);
+        const card = makeEl("div", "fever-share-card", text);
+        card.addEventListener("click", () => {
+          navigator.clipboard.writeText(text).then(() => {
+            card.textContent = "COPIED — TRANSMISSION INITIATED";
+            card.classList.add("fever-copied");
           });
-          shareWrap.appendChild(card);
         });
-        const spread = makeEl(
-          "div",
-          "fever-text-dim",
-          "The investigation spreads. That's how transmission works.",
-        );
-        wrap.appendChild(spread);
-        await dramaticPause(2000);
+        shareWrap.appendChild(card);
+
+        // Bottom row — play again + open source
+        const bottom = makeEl("div", "fever-finale-bottom");
         const again = makeEl("div", "fever-play-again");
         again.textContent = "PLAY AGAIN — DIFFERENT PHOTOS, SAME TRUTH";
         again.addEventListener("click", () => {
+          stage.classList.remove("fever-finale-stage");
           Effects.cleanup();
           document.body.classList.remove("screen-tilt", "conspiracy-mode");
           Game.showAct("act-title");
         });
-        wrap.appendChild(again);
-        // Open source link
+        bottom.appendChild(again);
         const oss = makeEl("div", "fever-opensource");
         oss.innerHTML =
           'Moustache is Open Source: <a href="https://github.com/TophSV/moustache" target="_blank" rel="noopener" class="fever-github-link"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>TophSV/moustache</a>';
-        wrap.appendChild(oss);
+        bottom.appendChild(oss);
+        wrap.appendChild(bottom);
         // Don't call next — this is the end
       },
     },

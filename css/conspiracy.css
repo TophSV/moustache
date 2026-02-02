@@ -676,12 +676,16 @@ body.conspiracy-mode .footer-classification::after {
 }
 
 /* ---- FINALE ---- */
+.fever-finale-stage {
+  padding: 60px 20px 20px;
+}
+
 .fever-finale {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 16px;
+  gap: 10px;
   max-width: 600px;
   width: 100%;
   animation: feverFadeIn 1.5s ease both;
@@ -700,22 +704,40 @@ body.conspiracy-mode .footer-classification::after {
 
 .fever-finale-rating {
   font-family: var(--font-data, "VT323", monospace);
-  font-size: 22px;
-  color: var(--amber, #e8a030);
+  font-size: 18px;
+  color: rgba(245, 230, 208, 0.6);
   letter-spacing: 0.1em;
 }
 
-.fever-finale-label {
-  font-family: var(--font-display, "Bodoni Moda", serif);
-  font-size: clamp(16px, 3vw, 24px);
-  font-weight: 700;
-  color: var(--red-string, #cc2020);
-  letter-spacing: 0.2em;
+.fever-rating-value {
+  color: var(--amber, #e8a030);
+  transition: opacity 0.3s ease;
+}
+
+.fever-rating-changing {
+  opacity: 0;
+}
+
+.fever-rating-arrived {
+  animation: ratingArrive 0.5s ease-out both;
+}
+
+@keyframes ratingArrive {
+  from {
+    opacity: 0;
+    transform: scale(1.2);
+    color: var(--red-string, #cc2020);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--amber, #e8a030);
+  }
 }
 
 /* ---- FINALE CREDITS ---- */
 .fever-finale-credits {
-  margin: 24px 0 8px;
+  margin: 8px 0 4px;
   text-align: center;
   animation: fadeUp 0.8s ease both;
 }
@@ -746,26 +768,26 @@ body.conspiracy-mode .footer-classification::after {
 
 /* ---- SHARE CARDS ---- */
 .fever-share-wrap {
-  margin-top: 24px;
+  margin-top: 10px;
   width: 100%;
 }
 
 .fever-share-label {
   font-family: var(--font-display, "Bodoni Moda", serif);
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 0.25em;
   color: rgba(245, 230, 208, 0.4);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .fever-share-card {
   font-family: var(--font-mono, "Special Elite", monospace);
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.4;
   color: var(--cream, #f5e6d0);
   background: rgba(245, 230, 208, 0.04);
   border: 1px solid rgba(245, 230, 208, 0.12);
-  padding: 14px 18px;
-  margin-bottom: 8px;
+  padding: 12px 16px;
   cursor: pointer;
   line-height: 1.5;
   transition: all 0.3s ease;
@@ -785,13 +807,20 @@ body.conspiracy-mode .footer-classification::after {
   letter-spacing: 0.15em;
 }
 
-/* ---- PLAY AGAIN ---- */
+/* ---- FINALE BOTTOM ---- */
+.fever-finale-bottom {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .fever-play-again {
   font-family: var(--font-display, "Bodoni Moda", serif);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.25em;
   color: rgba(245, 230, 208, 0.3);
-  margin-top: 32px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -803,10 +832,9 @@ body.conspiracy-mode .footer-classification::after {
 /* ---- OPEN SOURCE LINK ---- */
 .fever-opensource {
   font-family: var(--font-typewriter);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.15em;
   color: rgba(245, 230, 208, 0.25);
-  margin-top: 28px;
 }
 
 .fever-github-link {
