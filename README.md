@@ -1,5 +1,7 @@
 # MOUSTACHE
 
+> _"That's a woman in a turquoise tank top and the game is still asking you to choose Tom Selleck or Burt Reynolds."_
+
 **Can you tell Tom Selleck from Burt Reynolds?**
 _...Or are they the same person?_
 
