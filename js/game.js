@@ -92,6 +92,12 @@ const Game = {
       skipBtn.style.display = "none";
       video.style.display = "";
       countdown.style.display = "";
+      // They chose sound — default it on
+      Audio.init();
+      Audio.muted = false;
+      const soundBtn = document.getElementById("sound-toggle");
+      soundBtn.classList.add("active");
+      soundBtn.innerHTML = '<span class="sound-on">&#9835;</span>';
       video.play();
       timer = setInterval(() => {
         remaining--;
