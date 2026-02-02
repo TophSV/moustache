@@ -433,8 +433,9 @@ const Game = {
       const resultDelay = isImpostor ? 3500 : 1800;
 
       setTimeout(() => {
-        // Post-answer intrusion — every round after round 1
-        if (round > 1) {
+        const isLastRound = round >= this.state.totalRounds;
+        // Post-answer intrusion — skip round 1 and last round
+        if (round > 1 && !isLastRound) {
           this.showPostIntrusion(() => this.nextRound());
         } else {
           this.nextRound();
