@@ -314,22 +314,27 @@ const Game = {
     const msg = available[Math.floor(Math.random() * available.length)];
     this.usedForeshadows.push(msg);
 
+    // Hard cut — psychotic intrusion
     const overlay = document.createElement("div");
     overlay.className = "quiz-foreshadow";
-    overlay.textContent = msg;
     document.body.appendChild(overlay);
+    Audio.playGlitch();
     Effects.triggerGlitch();
 
-    // Fade in
-    requestAnimationFrame(() => (overlay.style.opacity = "1"));
-    // Hold then fade out
+    // Text burns in after a beat of black
     setTimeout(() => {
-      overlay.style.opacity = "0";
-      setTimeout(() => {
-        overlay.remove();
-        callback();
-      }, 300);
-    }, 900);
+      const text = document.createElement("div");
+      text.className = "foreshadow-text";
+      text.textContent = msg;
+      overlay.appendChild(text);
+    }, 400);
+
+    // Hard snap back to quiz
+    setTimeout(() => {
+      Effects.triggerGlitch();
+      overlay.remove();
+      callback();
+    }, 2800);
   },
 
   submitAnswer(guess) {

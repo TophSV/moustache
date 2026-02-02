@@ -599,7 +599,7 @@ body::before {
   margin-top: 4px;
 }
 
-/* Foreshadow flash overlay */
+/* Foreshadow intrusion — hard cut psychotic flash */
 .quiz-foreshadow {
   position: fixed;
   inset: 0;
@@ -607,27 +607,34 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.92);
+  flex-direction: column;
+  background: #000;
+  padding: 40px;
+}
+
+.foreshadow-text {
   font-family: var(--font-typewriter);
-  font-size: clamp(16px, 3vw, 28px);
+  font-size: clamp(18px, 4vw, 36px);
   color: var(--red);
   letter-spacing: 0.15em;
   text-align: center;
-  padding: 40px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  text-shadow: 0 0 20px rgba(204, 32, 32, 0.5);
-  animation: foreshadowFlicker 0.15s ease infinite alternate;
+  line-height: 1.4;
+  text-shadow:
+    0 0 30px rgba(204, 32, 32, 0.6),
+    0 0 60px rgba(204, 32, 32, 0.3);
+  animation: foreshadowBurnIn 0.3s ease-out both;
 }
 
-@keyframes foreshadowFlicker {
+@keyframes foreshadowBurnIn {
   from {
-    opacity: 0.85;
-    text-shadow: 0 0 20px rgba(204, 32, 32, 0.5);
+    opacity: 0;
+    transform: scale(1.1);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
-    text-shadow: 0 0 30px rgba(204, 32, 32, 0.8);
+    transform: scale(1);
+    filter: blur(0);
   }
 }
 
