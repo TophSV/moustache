@@ -214,20 +214,20 @@ body::before {
 /* ---- MUSTACHE ICON ---- */
 .mustache-icon {
   position: fixed;
-  top: 12px;
-  left: 16px;
+  top: 8px;
+  left: 14px;
   z-index: 110;
-  width: 40px;
-  height: 18px;
-  color: var(--amber-dim);
+  width: 28px;
+  height: 13px;
+  color: var(--amber-light);
   cursor: pointer;
-  opacity: 0.4;
+  opacity: 0.5;
   transition: all 0.3s;
 }
 
 .mustache-icon:hover {
-  color: var(--amber);
-  opacity: 1;
+  color: var(--amber-light);
+  opacity: 0.8;
   transform: scale(1.1);
 }
 
@@ -253,9 +253,9 @@ body::before {
 }
 
 #header-wordmark.placed {
-  top: 11px;
-  left: 60px;
-  font-size: 15px;
+  top: 7px;
+  left: 44px;
+  font-size: 13px;
   opacity: 0.5;
 }
 
