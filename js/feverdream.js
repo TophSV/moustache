@@ -558,20 +558,20 @@ const FeverDream = {
         } else {
           // === THE MANUFACTURED FEUD (NO path) ===
           stage.innerHTML = "";
-          stage.classList.add("fever-blackout");
-          await dramaticPause(800);
+          const blackWrap = makeEl("div", "fever-centered");
+          stage.appendChild(blackWrap);
+          await dramaticPause(1200);
 
           const said = makeEl("div", "fever-text-dim");
           said.textContent = "You said no.";
-          stage.appendChild(said);
+          blackWrap.appendChild(said);
           await dramaticPause(1500);
 
           const interesting = makeEl("div", "fever-text-dim");
           interesting.textContent = "Interesting.";
-          stage.appendChild(interesting);
+          blackWrap.appendChild(interesting);
           await dramaticPause(1800);
 
-          stage.classList.remove("fever-blackout");
           stage.innerHTML = "";
           Audio.playGlitch();
           Effects.triggerGlitch();
