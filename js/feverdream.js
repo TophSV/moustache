@@ -795,7 +795,7 @@ const FeverDream = {
         const label = makeEl(
           "div",
           "fever-text-dim",
-          "The probability of two unrelated mustaches matching to this degree:",
+          "The probability of two unrelated moustaches matching to this degree:",
         );
         wrap.appendChild(label);
         await dramaticPause(800);
