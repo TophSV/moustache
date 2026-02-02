@@ -702,7 +702,7 @@ const FeverDream = {
       },
     },
 
-    // ========== BEAT 10.5: YOU DIDN'T EVEN NOTICE ==========
+    // ========== BEAT 10.5: YOU DIDN'T EVEN NOTICE / YOU KNEW ENOUGH TO PLAY ALONG ==========
     {
       corruption: 0.58,
       truth: 5,
@@ -716,13 +716,19 @@ const FeverDream = {
           return;
         }
 
+        const saidYes = Game.state.believeChoice === "yes";
+
         // Frame 1: Title
         stage.innerHTML = "";
         const wrap = makeEl("div", "fever-centered");
         stage.appendChild(wrap);
         const title = makeEl("div", "fever-evidence-title");
         wrap.appendChild(title);
-        Effects.scrambleText(title, "YOU DIDN'T EVEN NOTICE", 600);
+        Effects.scrambleText(
+          title,
+          saidYes ? "YOU KNEW ENOUGH TO PLAY ALONG" : "YOU DIDN'T EVEN NOTICE",
+          600,
+        );
         Audio.playGlitch();
         await dramaticPause(1500);
         const sub = makeEl("div", "fever-text-dim");
@@ -1279,6 +1285,12 @@ const FeverDream = {
       async render(stage, next) {
         document.body.classList.remove("screen-tilt");
         stage.classList.add("fever-finale-stage");
+
+        // Stop the timer — freeze it at final time
+        if (Game.state.timerInterval) {
+          clearInterval(Game.state.timerInterval);
+          Game.state.timerInterval = null;
+        }
 
         const startLabel =
           Game.state.preFeverTruthLabel || "BLISSFULLY IGNORANT";
