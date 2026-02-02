@@ -388,7 +388,7 @@ const Game = {
     });
 
     // Truth goes up regardless
-    this.boostTruth(isCorrect ? 4 : 6);
+    if (isCorrect) this.boostTruth(4);
     this.updateHUD();
 
     const round = this.state.round;
