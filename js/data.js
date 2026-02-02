@@ -367,7 +367,7 @@ const PHOTO_DATA = [
     era: "2012",
     desc: "Subject photographed, 2012",
     hint: "The voice of beef",
-    joke: "That's Sam Elliott. But honestly, at this point, does it matter?",
+    joke: "The mustache matched. That's all that matters.",
     difficulty: 3,
   },
   {
@@ -377,7 +377,7 @@ const PHOTO_DATA = [
     era: "1966",
     desc: "Studio portrait, 1966",
     hint: "Death Wish was just the beginning",
-    joke: "That's Charles Bronson. The mustache reassignment program runs deep.",
+    joke: "Something about this one felt different. Ignore that feeling.",
     difficulty: 3,
   },
   {
@@ -387,7 +387,7 @@ const PHOTO_DATA = [
     era: "1970s",
     desc: "Press photograph, 1970s",
     hint: "Opened a vault on live television. It was empty.",
-    joke: "That's Geraldo Rivera. The vault was empty. The mustache was not.",
+    joke: "Did that face look right to you? Don't answer that.",
     difficulty: 3,
   },
   {
@@ -397,7 +397,7 @@ const PHOTO_DATA = [
     era: "2010s",
     desc: "University appearance",
     hint: "All the wood in Pawnee couldn't build this mustache",
-    joke: "That's Nick Offerman. The Pawnee branch of the mustache.",
+    joke: "The mustache is correct. The man behind it is... irrelevant.",
     difficulty: 3,
   },
   {
@@ -407,7 +407,7 @@ const PHOTO_DATA = [
     era: "1977",
     desc: "Concert photograph, 1977",
     hint: "Wanted to break free. The mustache wouldn't let him.",
-    joke: "That's Freddie Mercury. Even the mustache wanted to break free.",
+    joke: "You hesitated. That's interesting.",
     difficulty: 3,
   },
   {
@@ -417,7 +417,7 @@ const PHOTO_DATA = [
     era: "2000s",
     desc: "Portrait",
     hint: "If your mustache has its own Wikipedia page...",
-    joke: "That's Jeff Foxworthy. If your mustache has clearance level 5...",
+    joke: "Correct is correct. Don't overthink it.",
     difficulty: 3,
   },
   {
@@ -427,7 +427,7 @@ const PHOTO_DATA = [
     era: "2000s",
     desc: "Portrait photograph",
     hint: "Went from Chicago PD to Law & Order. The mustache transferred.",
-    joke: "That's Dennis Farina. Chicago PD never closed the mustache case.",
+    joke: "The eyes were wrong but the mustache was right. Move on.",
     difficulty: 3,
   },
   {
@@ -437,7 +437,7 @@ const PHOTO_DATA = [
     era: "1990s",
     desc: "Military event photograph",
     hint: "The answer is: this man's mustache. What is: classified.",
-    joke: "That's Alex Trebek. The answer was always: the same mustache.",
+    joke: "You got it right. Why does it feel like you didn't?",
     difficulty: 3,
   },
   {
@@ -447,7 +447,7 @@ const PHOTO_DATA = [
     era: "1976",
     desc: "TV publicity still, 1976",
     hint: "Welcome Back, Mustache",
-    joke: "That's Gabe Kaplan. Welcome back, mustache.",
+    joke: "That one didn't look like either of them. But it did, didn't it?",
     difficulty: 3,
   },
 ];
