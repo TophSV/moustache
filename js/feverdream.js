@@ -984,10 +984,13 @@ const FeverDream = {
         const wrap = makeEl("div", "fever-finale");
         stage.appendChild(wrap);
         await dramaticPause(500);
+        const startLabel =
+          Game.state.preFeverTruthLabel || "BLISSFULLY IGNORANT";
         const rating = makeEl("div", "fever-finale-rating");
-        rating.textContent = "Your Truth Rating: " + Game.state.truthRating;
+        rating.textContent = "Your Truth Rating: " + startLabel;
         wrap.appendChild(rating);
-        await dramaticPause(800);
+        await dramaticPause(1200);
+        rating.textContent = "Your Truth Rating: " + Game.getTruthLabel();
         const label = makeEl("div", "fever-finale-label", Game.getTruthLabel());
         wrap.appendChild(label);
         await dramaticPause(1000);
@@ -1019,10 +1022,13 @@ const FeverDream = {
         );
         shareWrap.appendChild(shareLabel);
         const rating_text = Game.getTruthLabel();
+        const start_rating =
+          Game.state.preFeverTruthLabel || "BLISSFULLY IGNORANT";
         const time = Game.getTimeString();
         SHARE_TEXTS.forEach((template) => {
           const text = template
             .replace("[TIME]", time)
+            .replace("[START_RATING]", start_rating)
             .replace("[RATING]", rating_text);
           const card = makeEl("div", "fever-share-card", text);
           card.addEventListener("click", () => {

@@ -452,6 +452,8 @@ const Game = {
 
   // --- ENTER THE FEVER DREAM ---
   enterInvestigation() {
+    // Snapshot truth label before fever dream corrupts it
+    this.state.preFeverTruthLabel = this.getTruthLabel();
     this.showAct("act-feverdream");
     FeverDream.start();
   },

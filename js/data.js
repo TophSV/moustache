@@ -717,7 +717,7 @@ const TRUTH_RATINGS = [
 ];
 
 const SHARE_TEXTS = [
-  "Have you ever seen Tom Selleck and Burt Reynolds in the same room? I spent [TIME] investigating and my Truth Rating is [RATING]. I can't prove they're different people.\n\nhttps://moustache-eight.vercel.app/",
-  "I started playing this dumb mustache game to prove they're obviously two different people. [TIME] later my Truth Rating is [RATING] and I have questions.\n\nhttps://moustache-eight.vercel.app/",
-  "My Truth Rating for the Selleck-Reynolds Investigation is [RATING] after [TIME] of analysis. The mustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache-eight.vercel.app/",
+  "Have you ever seen Tom Selleck and Burt Reynolds in the same room? I spent [TIME] investigating. My Truth Rating went from [START_RATING] to [RATING]. I can't prove they're different people.\n\nhttps://moustache-eight.vercel.app/",
+  "I started playing this dumb mustache game to prove they're obviously two different people. [TIME] later my Truth Rating went from [START_RATING] to [RATING]. I have questions.\n\nhttps://moustache-eight.vercel.app/",
+  "My Truth Rating for the Selleck-Reynolds Investigation went from [START_RATING] to [RATING] in [TIME]. The mustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache-eight.vercel.app/",
 ];
