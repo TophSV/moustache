@@ -417,6 +417,7 @@ const FeverDream = {
           "fever-text-dim",
           "Side-by-side follicle analysis",
         );
+        intro.style.marginBottom = "16px";
         wrap.appendChild(intro);
         await dramaticPause(600);
         // Animated bars
@@ -521,6 +522,8 @@ const FeverDream = {
           next();
           return;
         }
+
+        // Frame 1: Title
         stage.innerHTML = "";
         const wrap = makeEl("div", "fever-centered");
         stage.appendChild(wrap);
@@ -532,34 +535,57 @@ const FeverDream = {
         const sub = makeEl("div", "fever-text-dim");
         sub.textContent = "Some of those photos weren't Tom or Burt.";
         wrap.appendChild(sub);
-        await dramaticPause(2000);
-        // Flash each impostor
+        await dramaticPause(2500);
+
+        // Frame 2+: Each impostor, one at a time, full stage
         for (const imp of impostors) {
-          const card = makeEl("div", "fever-evidence");
-          card.style.borderColor = "var(--red-string)";
+          stage.innerHTML = "";
+          const solo = makeEl("div", "fever-centered");
+          stage.appendChild(solo);
           const img = document.createElement("img");
           img.src = imp.url;
-          img.style.cssText =
-            "max-width:200px;max-height:200px;filter:grayscale(0.5) contrast(1.2);margin-bottom:12px;";
+          img.className = "fever-impostor-photo";
           img.crossOrigin = "anonymous";
-          card.appendChild(img);
-          const label = makeEl("div", "fever-highlight fever-big");
-          label.textContent =
+          solo.appendChild(img);
+          await dramaticPause(800);
+          const callout = makeEl("div", "fever-impostor-callout");
+          callout.textContent =
             imp.answer === "selleck"
-              ? "YOU CALLED THIS TOM SELLECK"
-              : "YOU CALLED THIS BURT REYNOLDS";
-          card.appendChild(label);
-          wrap.appendChild(card);
+              ? 'You said this was "Tom Selleck"'
+              : 'You said this was "Burt Reynolds"';
+          solo.appendChild(callout);
           shakeScreen(4, 200);
-          await dramaticPause(2000);
+          Audio.playGlitch();
+          await dramaticPause(2500);
         }
-        await dramaticPause(1000);
-        const punchline = makeEl(
-          "div",
-          "fever-evidence-sub fever-big",
+
+        // Frame 3: All together + punchline
+        stage.innerHTML = "";
+        const finale = makeEl("div", "fever-centered");
+        stage.appendChild(finale);
+        const row = makeEl("div", "fever-impostor-row");
+        for (const imp of impostors) {
+          const thumb = makeEl("div", "fever-impostor-thumb");
+          const img = document.createElement("img");
+          img.src = imp.url;
+          img.className = "fever-impostor-photo-sm";
+          img.crossOrigin = "anonymous";
+          thumb.appendChild(img);
+          const lbl = makeEl("div", "fever-impostor-label");
+          lbl.textContent =
+            imp.answer === "selleck" ? '"Tom Selleck"' : '"Burt Reynolds"';
+          thumb.appendChild(lbl);
+          row.appendChild(thumb);
+        }
+        finale.appendChild(row);
+        await dramaticPause(1500);
+        const punchline = makeEl("div", "fever-evidence-sub fever-big");
+        finale.appendChild(punchline);
+        await typeText(
+          punchline,
           "If you can't tell who has the moustache, does it matter who's behind it?",
+          25,
         );
-        wrap.appendChild(punchline);
         Effects.triggerGlitch();
         await dramaticPause(3000);
         next();

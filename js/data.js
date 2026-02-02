@@ -689,31 +689,53 @@ const SKEPTIC_RESPONSES = [
 ];
 
 const TRUTH_RATINGS = [
+  // Quiz range: each tier = 1 correct answer (+4 truth each)
   {
-    max: 5,
+    max: 3,
     label: "BLISSFULLY IGNORANT",
     desc: "You haven't looked closely enough yet. You will.",
   },
   {
-    max: 12,
+    max: 7,
     label: "MILDLY UNCOMFORTABLE",
     desc: "Something doesn't sit right. You can't name it yet.",
   },
   {
-    max: 20,
+    max: 11,
     label: "SQUINTING SUSPICIOUSLY",
     desc: "You're leaning closer to the screen. We can tell.",
   },
   {
-    max: 30,
+    max: 15,
+    label: "BEGINNING TO WONDER",
+    desc: "The first doubt is always the quietest.",
+  },
+  {
+    max: 19,
     label: "ACTIVELY QUESTIONING",
     desc: "You've started checking facts. That's how it begins.",
   },
   {
-    max: 40,
+    max: 23,
+    label: "THE RESEMBLANCE IS UNCANNY",
+    desc: "You said it. Not us.",
+  },
+  {
+    max: 27,
     label: "UNABLE TO UNSEE",
     desc: "The patterns are everywhere now. You see them in every photo.",
   },
+  {
+    max: 31,
+    label: "DEEPLY SUSPICIOUS",
+    desc: "You're not paranoid if they actually have the same face.",
+  },
+  {
+    max: 40,
+    label: "THEY HAVE THE SAME FACE",
+    desc: "Eight for eight. You knew. You always knew.",
+  },
+  // Post-quiz / fever dream range
   {
     max: 55,
     label: "DEEP IN THE FILES",

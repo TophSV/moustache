@@ -466,7 +466,7 @@ body.conspiracy-mode .footer-classification::after {
   height: 32px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-family: var(--font-data, "VT323", monospace);
   font-size: 13px;
   letter-spacing: 0.1em;
@@ -475,8 +475,12 @@ body.conspiracy-mode .footer-classification::after {
     width 0.8s cubic-bezier(0.22, 1, 0.36, 1),
     margin-left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   margin-bottom: 6px;
-  overflow: hidden;
+  overflow: visible;
   white-space: nowrap;
+}
+
+.fever-timeline-bar span {
+  padding: 0 8px;
 }
 
 .fever-bar-r {
@@ -513,7 +517,7 @@ body.conspiracy-mode .footer-classification::after {
 }
 
 .fever-forensic-label {
-  width: 140px;
+  width: clamp(80px, 22vw, 140px);
   flex-shrink: 0;
   color: var(--cream, #f5e6d0);
   letter-spacing: 0.05em;
@@ -547,7 +551,7 @@ body.conspiracy-mode .footer-classification::after {
 }
 
 .fever-forensic-vals {
-  width: 120px;
+  width: clamp(60px, 18vw, 120px);
   flex-shrink: 0;
   color: rgba(245, 230, 208, 0.6);
   font-size: 12px;
@@ -872,37 +876,51 @@ body.conspiracy-mode .footer-classification::after {
 
 .fever-refresh-btn {
   font-family: var(--font-data, "VT323", monospace);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.15em;
-  color: rgba(245, 230, 208, 0.25);
+  color: rgba(245, 230, 208, 0.45);
   cursor: pointer;
-  margin-top: 6px;
-  transition: color 0.3s ease;
+  margin: 14px 0;
+  padding: 8px 18px;
+  border: 1px solid rgba(245, 230, 208, 0.2);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .fever-refresh-btn:hover {
-  color: rgba(245, 230, 208, 0.6);
+  color: var(--amber, #e8a030);
+  border-color: var(--amber, #e8a030);
 }
 
 .fever-share-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fever-share-btn {
   font-family: var(--font-data, "VT323", monospace);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.12em;
-  color: rgba(245, 230, 208, 0.3);
+  color: rgba(245, 230, 208, 0.35);
   cursor: pointer;
-  padding: 4px 10px;
-  border: 1px solid rgba(245, 230, 208, 0.12);
+  padding: 8px 16px;
+  border: 1px solid rgba(245, 230, 208, 0.15);
+  text-align: center;
   transition:
     color 0.3s ease,
     border-color 0.3s ease;
+}
+
+.fever-share-btn:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: 50%;
+  justify-self: center;
 }
 
 .fever-share-btn:hover {
@@ -964,6 +982,49 @@ body.conspiracy-mode .footer-classification::after {
   transition: transform 0.5s ease;
 }
 
+/* ---- IMPOSTOR BEAT ---- */
+.fever-impostor-photo {
+  max-width: min(60vw, 280px);
+  max-height: 40vh;
+  filter: grayscale(0.5) contrast(1.2);
+  border: 2px solid var(--red-string, #cc2020);
+}
+
+.fever-impostor-callout {
+  font-family: var(--font-mono, "Special Elite", monospace);
+  font-size: clamp(16px, 3.5vw, 22px);
+  color: var(--cream, #f5e6d0);
+  margin-top: 16px;
+  letter-spacing: 0.05em;
+}
+
+.fever-impostor-row {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.fever-impostor-thumb {
+  text-align: center;
+}
+
+.fever-impostor-photo-sm {
+  max-width: min(35vw, 160px);
+  max-height: 25vh;
+  filter: grayscale(0.5) contrast(1.2);
+  border: 2px solid var(--red-string, #cc2020);
+}
+
+.fever-impostor-label {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 14px;
+  color: var(--amber, #e8a030);
+  margin-top: 8px;
+  letter-spacing: 0.1em;
+}
+
 /* ---- FADE IN ANIMATION ---- */
 @keyframes feverFadeIn {
   from {
@@ -973,5 +1034,25 @@ body.conspiracy-mode .footer-classification::after {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ---- MOBILE ---- */
+@media (max-width: 600px) {
+  .fever-forensic-row {
+    gap: 6px;
+  }
+
+  .fever-forensic-row {
+    font-size: 12px;
+  }
+
+  .fever-forensic-track {
+    height: 12px;
+  }
+
+  .fever-timeline-bar {
+    font-size: 11px;
+    height: 26px;
   }
 }
