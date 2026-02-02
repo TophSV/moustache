@@ -178,15 +178,21 @@ const Game = {
     const titleMain = document.querySelector(".title-main");
     if (titleMain) {
       const rect = titleMain.getBoundingClientRect();
+      const cs = getComputedStyle(titleMain);
       const wordmark = document.createElement("span");
       wordmark.id = "header-wordmark";
       wordmark.textContent = "MOUSTACHE";
       wordmark.style.top = rect.top + "px";
       wordmark.style.left = rect.left + "px";
-      wordmark.style.fontSize = rect.height + "px";
+      wordmark.style.fontSize = cs.fontSize;
       wordmark.style.opacity = "1";
       document.body.appendChild(wordmark);
       wordmark.offsetHeight; // force reflow
+      // Clear inline styles so .placed class values win and transition fires
+      wordmark.style.top = "";
+      wordmark.style.left = "";
+      wordmark.style.fontSize = "";
+      wordmark.style.opacity = "";
       wordmark.classList.add("placed");
     }
 
