@@ -283,6 +283,11 @@ body.conspiracy-mode .footer-classification::after {
   overflow: hidden;
 }
 
+.fever-stage.fever-blackout {
+  padding: 0;
+  background: #000;
+}
+
 /* ---- EVIDENCE CARDS ---- */
 .fever-evidence {
   max-width: 640px;

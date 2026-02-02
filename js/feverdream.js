@@ -842,14 +842,14 @@ const FeverDream = {
         }
         // HARD CUT
         stage.innerHTML = "";
-        stage.style.background = "#000";
+        stage.classList.add("fever-blackout");
         Audio.playGlitch();
         await dramaticPause(2000);
         const calm = makeEl("div", "fever-calm", "There is only one mustache.");
         stage.appendChild(calm);
         await dramaticPause(1500);
         await waitForAnyClick(stage);
-        stage.style.background = "";
+        stage.classList.remove("fever-blackout");
         next();
       },
     },
@@ -953,12 +953,12 @@ const FeverDream = {
         await dramaticPause(2000);
         // BLACKOUT
         stage.innerHTML = "";
-        stage.style.background = "#000";
+        stage.classList.add("fever-blackout");
         Effects.stopFlickerLoop();
         Audio.startAmbient(0);
         document.getElementById("popup-container").innerHTML = "";
         await dramaticPause(3000);
-        stage.style.background = "";
+        stage.classList.remove("fever-blackout");
         next();
       },
     },
