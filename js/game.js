@@ -387,8 +387,8 @@ const Game = {
       actual: data.answer,
     });
 
-    // Truth goes up regardless
-    if (isCorrect) this.boostTruth(4);
+    // Truth goes up on correct (including impostors)
+    if (isCorrect || isImpostor) this.boostTruth(4);
     this.updateHUD();
 
     const round = this.state.round;
