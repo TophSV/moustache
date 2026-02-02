@@ -764,12 +764,66 @@ const TRUTH_RATINGS = [
 ];
 
 const SHARE_TEXTS = [
-  "Have you ever seen Tom Selleck and Burt Reynolds in the same room? I spent [TIME] investigating. My Truth Rating went from [START_RATING] to [RATING]. I can't prove they're different people.\n\nhttps://moustache.wtf",
-  "I started playing this dumb moustache game to prove they're obviously two different people. [TIME] later my Truth Rating went from [START_RATING] to [RATING]. I have questions.\n\nhttps://moustache.wtf",
-  "My Truth Rating for the Selleck-Reynolds Investigation went from [START_RATING] to [RATING] in [TIME]. The moustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache.wtf",
-  "I went from [START_RATING] to [RATING] in [TIME] and I scored it on a moustache quiz. The quiz wasn't the point. The moustache was always the point.\n\nhttps://moustache.wtf",
-  "They showed me a photo of Freddie Mercury and asked if it was Tom Selleck or Burt Reynolds. I said Burt. It counted. My Truth Rating is [RATING].\n\nhttps://moustache.wtf",
-  "Burt Selleck and Tom Reynolds star in: the investigation that broke me. [TIME]. [START_RATING] to [RATING]. I need to sit down.\n\nhttps://moustache.wtf",
-  "The moustache forensics came back as a 99.7% match and I don't know what to do with this information. Truth Rating: [RATING].\n\nhttps://moustache.wtf",
-  "Someone made a website that asks you to identify moustaches and then systematically dismantles your sense of reality. My Truth Rating went from [START_RATING] to [RATING] in [TIME].\n\nhttps://moustache.wtf",
+  {
+    text: "Have you ever seen Tom Selleck and Burt Reynolds in the same room? I spent [TIME] investigating. My Truth Rating went from [START_RATING] to [RATING]. I can't prove they're different people.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "I started playing this dumb moustache game to prove they're obviously two different people. [TIME] later my Truth Rating went from [START_RATING] to [RATING]. I have questions.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "My Truth Rating for the Selleck-Reynolds Investigation went from [START_RATING] to [RATING] in [TIME]. The moustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "I went from [START_RATING] to [RATING] in [TIME] and I scored it on a moustache quiz. The quiz wasn't the point. The moustache was always the point.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "They showed me a photo of Freddie Mercury and asked if it was Tom Selleck or Burt Reynolds. I said Burt. It counted. My Truth Rating is [RATING].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "Burt Selleck and Tom Reynolds star in: the investigation that broke me. [TIME]. [START_RATING] to [RATING]. I need to sit down.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "The moustache forensics came back as a 99.7% match and I don't know what to do with this information. Truth Rating: [RATING].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "Someone made a website that asks you to identify moustaches and then systematically dismantles your sense of reality. My Truth Rating went from [START_RATING] to [RATING] in [TIME].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "I just took a quiz about moustaches and now I'm a person who has taken a quiz about moustaches. Truth Rating: [RATING]. I don't know what I expected.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "They told me the moustache forensics were a 99.7% match and I said 'that's not how forensics work' and then they asked me how forensics work and I didn't have an answer. [RATING].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "My browser history now contains the phrase 'moustache forensics.' My Truth Rating is [RATING]. These two facts are related.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "I spent [TIME] on a website called moustache.wtf. I went from [START_RATING] to [RATING]. I am not going to elaborate on this.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "The website told me I was being investigated. I kept clicking. It told me my browser history had been noted. I kept clicking. Truth Rating: [RATING]. I am still clicking.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "In [TIME] I went from 'this is stupid' to [RATING] and I need to talk to someone about this. Not about the conspiracy. About the fact that I can't stop thinking about it.\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "Tom Selleck was the executive producer of a show starring Burt Reynolds. That's not a conspiracy theory. That's an IMDb page. My Truth Rating is [RATING].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "I failed a moustache identification quiz and then a website tilted my screen 1.2 degrees and I didn't leave. [START_RATING] to [RATING] in [TIME].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "A website just told me 'the moustache does not require belief, it requires attention' and I have been thinking about that for [TIME] so I guess it was right.\n\nhttps://moustache.wtf",
+    requires: "no",
+  },
+  {
+    text: "I clicked 'NO' on the 99.7% forensic match and the website said 'that's exactly what the moustache wants you to think.' I don't have a rebuttal. [RATING].\n\nhttps://moustache.wtf",
+    requires: "no",
+  },
+  {
+    text: "'There was a time I could have been mistaken for Burt Reynolds.' Tom Selleck said that. He said MISTAKEN. Not compared to. Found out. As in caught. [RATING].\n\nhttps://moustache.wtf",
+  },
+  {
+    text: "They showed me a career timeline where one of them stops working every time the other one starts and I'm supposed to believe that's a coincidence. [RATING].\n\nhttps://moustache.wtf",
+  },
 ];

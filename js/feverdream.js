@@ -1442,13 +1442,16 @@ const FeverDream = {
         // Build share card with refresh
         let usedIndices = [];
         const buildShareCard = () => {
-          if (usedIndices.length >= SHARE_TEXTS.length) usedIndices = [];
+          const eligible = SHARE_TEXTS.filter(
+            (s) => !s.requires || s.requires === Game.state.believeChoice,
+          );
+          if (usedIndices.length >= eligible.length) usedIndices = [];
           let idx;
           do {
-            idx = Math.floor(Math.random() * SHARE_TEXTS.length);
+            idx = Math.floor(Math.random() * eligible.length);
           } while (usedIndices.includes(idx));
           usedIndices.push(idx);
-          const text = SHARE_TEXTS[idx]
+          const text = eligible[idx].text
             .replace("[TIME]", time)
             .replace("[START_RATING]", startLabel)
             .replace("[RATING]", finalLabel);

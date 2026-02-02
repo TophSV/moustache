@@ -257,8 +257,12 @@ const Investigation = {
     const rating = Game.getTruthLabel();
     const time = Game.getTimeString();
 
-    SHARE_TEXTS.forEach((template) => {
-      const text = template.replace("[TIME]", time).replace("[RATING]", rating);
+    SHARE_TEXTS.filter(
+      (s) => !s.requires || s.requires === Game.state.believeChoice,
+    ).forEach((entry) => {
+      const text = entry.text
+        .replace("[TIME]", time)
+        .replace("[RATING]", rating);
       const el = document.createElement("div");
       el.className = "share-text";
       el.textContent = text;
