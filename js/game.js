@@ -174,6 +174,22 @@ const Game = {
       quizPhotos: this.selectQuizPhotos(),
     };
 
+    // Animate "MOUSTACHE" wordmark to header
+    const titleMain = document.querySelector(".title-main");
+    if (titleMain) {
+      const rect = titleMain.getBoundingClientRect();
+      const wordmark = document.createElement("span");
+      wordmark.id = "header-wordmark";
+      wordmark.textContent = "MOUSTACHE";
+      wordmark.style.top = rect.top + "px";
+      wordmark.style.left = rect.left + "px";
+      wordmark.style.fontSize = rect.height + "px";
+      wordmark.style.opacity = "1";
+      document.body.appendChild(wordmark);
+      wordmark.offsetHeight; // force reflow
+      wordmark.classList.add("placed");
+    }
+
     // Show truth bar
     document.getElementById("truth-bar").style.display = "";
 
