@@ -238,6 +238,8 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition:

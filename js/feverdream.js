@@ -478,7 +478,7 @@ const FeverDream = {
       },
     },
 
-    // ========== BEAT 9.5: CONDITIONAL — YES: THE PAPER TRAIL / NO: THE MANUFACTURED FEUD ==========
+    // ========== BEAT 9.5: CONDITIONAL — YES: THE PAPER TRAIL / NO: THE MOUSTACHE RESPONDS ==========
     {
       corruption: 0.53,
       truth: 0, // truth is boosted manually inside each path
@@ -556,7 +556,7 @@ const FeverDream = {
           Game.boostTruth(5);
           await dramaticPause(2500);
         } else {
-          // === THE MANUFACTURED FEUD (NO path) ===
+          // === THE MOUSTACHE RESPONDS (NO path) ===
           stage.innerHTML = "";
           const blackWrap = makeEl("div", "fever-centered");
           stage.appendChild(blackWrap);
@@ -567,10 +567,12 @@ const FeverDream = {
           blackWrap.appendChild(said);
           await dramaticPause(1500);
 
-          const interesting = makeEl("div", "fever-text-dim");
-          interesting.textContent = "Interesting.";
-          blackWrap.appendChild(interesting);
-          await dramaticPause(1800);
+          const response = makeEl("div", "fever-text-dim");
+          response.style.fontStyle = "italic";
+          response.textContent =
+            "That's exactly what the moustache wants you to think.";
+          blackWrap.appendChild(response);
+          await dramaticPause(2200);
 
           stage.innerHTML = "";
           Audio.playGlitch();
@@ -579,7 +581,7 @@ const FeverDream = {
           const card = makeEl("div", "fever-evidence");
           const title = makeEl("div", "fever-evidence-title");
           card.appendChild(title);
-          Effects.scrambleText(title, "THE MANUFACTURED FEUD", 600);
+          Effects.scrambleText(title, "THE MOUSTACHE RESPONDS", 600);
           stage.appendChild(card);
           await dramaticPause(800);
 
@@ -587,72 +589,78 @@ const FeverDream = {
           card.appendChild(text1);
           await typeText(
             text1,
-            "In 1984, there was a woman. Reynolds' woman.",
+            "You believe you just exercised free will.",
             28,
           );
-          await dramaticPause(1000);
+          await dramaticPause(800);
 
           const text2 = makeEl("div", "fever-evidence-text");
           card.appendChild(text2);
           await typeText(
             text2,
-            "Rumors said she spent a night with Selleck.",
+            "The moustache appreciates your confidence.",
             28,
           );
-          await dramaticPause(1200);
-          shakeScreen(5, 250);
+          await dramaticPause(1500);
 
-          const text3 = makeEl("div", "fever-evidence-sub fever-big");
-          text3.textContent = "They never spoke again.";
+          const text3 = makeEl("div", "fever-evidence-text");
           card.appendChild(text3);
+          const timeStr = Game.getTimeString();
+          await typeText(
+            text3,
+            "Consider: you have now spent " +
+              timeStr +
+              " looking at moustaches.",
+            22,
+          );
+          await dramaticPause(600);
+
+          const text4 = makeEl("div", "fever-text-dim");
+          text4.textContent = "Of your own volition. Nobody forced you.";
+          card.appendChild(text4);
+          await dramaticPause(1800);
+
+          const text5 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text5);
+          await typeText(
+            text5,
+            "The moustache does not require belief. It requires attention.",
+            22,
+          );
+          await dramaticPause(600);
+
+          const has = makeEl("div", "fever-evidence-sub fever-big");
+          has.textContent = "It has yours.";
+          card.appendChild(has);
+          shakeScreen(5, 250);
           await dramaticPause(2000);
 
-          // The reframe — word by word
-          const reframe1 = makeEl("div", "fever-evidence-text");
-          card.appendChild(reframe1);
-          const words1 = "If you were one person pretending to be two...".split(
-            " ",
-          );
-          for (const word of words1) {
-            reframe1.textContent += (reframe1.textContent ? " " : "") + word;
-            await dramaticPause(250);
-          }
-          await dramaticPause(800);
-
-          const reframe2 = makeEl("div", "fever-evidence-text");
-          card.appendChild(reframe2);
-          await typeText(reframe2, "you would ", 30);
-          const needSpan = document.createElement("span");
-          needSpan.className = "fever-highlight";
-          reframe2.appendChild(needSpan);
-          Effects.scrambleText(needSpan, "NEED", 400);
-          shakeScreen(6, 300);
-          await dramaticPause(600);
-          const needRest = document.createTextNode(" a public falling out.");
-          reframe2.appendChild(needRest);
-          await dramaticPause(1200);
-
-          const text4 = makeEl("div", "fever-evidence-text");
-          card.appendChild(text4);
+          const text6 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text6);
           await typeText(
-            text4,
-            "You would need witnesses. A woman between them. A story no one would ever question.",
+            text6,
+            "It has moved between faces for decades. Reynolds. Selleck. Others you haven't been cleared to know about.",
             18,
           );
-          await dramaticPause(1200);
+          await dramaticPause(1500);
 
-          const alibi = makeEl("div", "fever-huge");
-          card.appendChild(alibi);
-          Effects.scrambleText(alibi, "The feud was the alibi.", 600);
+          const kicker = makeEl("div", "fever-huge");
+          card.appendChild(kicker);
+          Effects.scrambleText(kicker, "It is not worn. It wears.", 800);
           flashScreen("#ff3030", 150);
           Audio.playReveal();
+          await dramaticPause(2500);
+
+          const filed = makeEl("div", "fever-huge");
+          card.appendChild(filed);
+          Effects.scrambleText(filed, "YOUR NO CHANGES NOTHING.", 600);
+          shakeScreen(6, 300);
           await dramaticPause(2000);
 
-          const aimed = makeEl("div", "fever-text-dim");
-          aimed.style.fontStyle = "italic";
-          aimed.textContent =
-            "Your skepticism is exactly what the feud was designed to create.";
-          card.appendChild(aimed);
+          const heard = makeEl("div", "fever-text-dim");
+          heard.style.fontStyle = "italic";
+          heard.textContent = "It heard you. It doesn't mind.";
+          card.appendChild(heard);
           Effects.triggerFlicker();
           Game.boostTruth(4);
           await dramaticPause(2500);
@@ -940,22 +948,11 @@ const FeverDream = {
         } else if (Game.state.believeChoice === "no") {
           const egg1 = makeEl("div", "fever-dossier-text");
           wrap.appendChild(egg1);
-          await typeText(egg1, "You said NO at the 99.7% checkpoint.", 18);
-          await dramaticPause(400);
+          await typeText(egg1, "You said no. The moustache noted it.", 18);
+          await dramaticPause(600);
           const egg2 = makeEl("div", "fever-dossier-text");
           wrap.appendChild(egg2);
-          await typeText(egg2, "Logging resistance pattern.", 18);
-          await dramaticPause(800);
-          const egg3 = makeEl("div", "fever-evidence-sub");
-          egg3.textContent =
-            "SUBJECTS WHO SAID NO AND STILL REACHED THIS POINT:";
-          wrap.appendChild(egg3);
-          await dramaticPause(400);
-          const stat = makeEl("div", "fever-huge fever-number");
-          stat.textContent = "0";
-          wrap.appendChild(stat);
-          await animateNumber(stat, 0, 94.2, 1200, "%");
-          stat.textContent = "94.2%";
+          await typeText(egg2, "Your file is still open.", 18);
           Effects.triggerFlicker();
           await dramaticPause(1200);
         }
@@ -1269,7 +1266,7 @@ const FeverDream = {
         Effects.stopFlickerLoop();
         Audio.startAmbient(0);
         document.getElementById("popup-container").innerHTML = "";
-        await dramaticPause(3000);
+        await dramaticPause(1500);
         stage.classList.remove("fever-blackout");
         next();
       },
