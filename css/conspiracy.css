@@ -800,6 +800,25 @@ body.conspiracy-mode .footer-classification::after {
   color: var(--cream, #f5e6d0);
 }
 
+/* ---- OPEN SOURCE LINK ---- */
+.fever-opensource {
+  font-family: var(--font-typewriter);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(245, 230, 208, 0.25);
+  margin-top: 28px;
+}
+
+.fever-github-link {
+  color: rgba(245, 230, 208, 0.4);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.fever-github-link:hover {
+  color: var(--cream, #f5e6d0);
+}
+
 /* ---- SCREEN TILT (permanent from beat 12) ---- */
 .screen-tilt #act-feverdream {
   transform: rotate(1.2deg);
