@@ -214,11 +214,11 @@ body::before {
 /* ---- MUSTACHE ICON ---- */
 .mustache-icon {
   position: fixed;
-  top: 8px;
+  top: 10px;
   left: 14px;
   z-index: 110;
-  width: 28px;
-  height: 13px;
+  width: 22px;
+  height: 10px;
   color: var(--amber-light);
   cursor: pointer;
   opacity: 0.5;
@@ -253,9 +253,9 @@ body::before {
 }
 
 #header-wordmark.placed {
-  top: 7px;
-  left: 44px;
-  font-size: 13px;
+  top: 6px;
+  left: 40px;
+  font-size: 11px;
   opacity: 0.5;
 }
 
