@@ -185,11 +185,13 @@ const Game = {
       quizPhotos: this.selectQuizPhotos(),
     };
 
-    // Animate "MOUSTACHE" wordmark to header
+    // Animate "MOUSTACHE" wordmark: flash from title, then reveal header logo
     const titleMain = document.querySelector(".title-main");
-    if (titleMain) {
+    const headerLogo = document.getElementById("header-logo");
+    if (titleMain && headerLogo) {
       const rect = titleMain.getBoundingClientRect();
       const cs = getComputedStyle(titleMain);
+      // Create flying clone
       const wordmark = document.createElement("span");
       wordmark.id = "header-wordmark";
       wordmark.textContent = "MOUSTACHE";
@@ -197,14 +199,24 @@ const Game = {
       wordmark.style.left = rect.left + "px";
       wordmark.style.fontSize = cs.fontSize;
       wordmark.style.opacity = "1";
+      wordmark.style.transition =
+        "top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), font-size 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.6s cubic-bezier(0.4,0,0.2,1)";
       document.body.appendChild(wordmark);
-      wordmark.offsetHeight; // force reflow
-      // Clear inline styles so .placed class values win and transition fires
-      wordmark.style.top = "";
-      wordmark.style.left = "";
-      wordmark.style.fontSize = "";
-      wordmark.style.opacity = "";
-      wordmark.classList.add("placed");
+      wordmark.offsetHeight;
+      // Fly toward header logo position
+      const logoText = headerLogo.querySelector(".header-logo-text");
+      headerLogo.style.display = "";
+      const logoRect = logoText.getBoundingClientRect();
+      wordmark.style.top = logoRect.top + "px";
+      wordmark.style.left = logoRect.left + "px";
+      wordmark.style.fontSize = "13px";
+      wordmark.style.opacity = "0.5";
+      // After transition: glitch flash, remove clone, reveal logo
+      setTimeout(() => {
+        Effects.triggerGlitch();
+        wordmark.remove();
+        headerLogo.classList.add("visible");
+      }, 650);
     }
 
     // Show truth bar

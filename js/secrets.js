@@ -22,8 +22,8 @@ const Secrets = {
   init() {
     document.addEventListener("keydown", (e) => this.checkKonami(e.key));
 
-    // Hidden mustache icon — triple-click to open evidence room
-    const mustacheIcon = document.getElementById("mustache-icon");
+    // Header logo — triple-click to open evidence room
+    const mustacheIcon = document.getElementById("header-logo");
     if (mustacheIcon) {
       mustacheIcon.addEventListener("click", () => {
         this.clickCount++;
