@@ -773,6 +773,14 @@ const FeverDream = {
         const note = makeEl("div", "fever-evidence-text");
         card.appendChild(note);
         await typeText(note, "This line was not in the original script.", 30);
+        await dramaticPause(1200);
+        const note2 = makeEl("div", "fever-evidence-text");
+        card.appendChild(note2);
+        await typeText(
+          note2,
+          "But which identity was actually behind Magnum's private investigations?",
+          30,
+        );
         await dramaticPause(800);
         Effects.triggerGlitch();
         Effects.triggerVHSTrack();

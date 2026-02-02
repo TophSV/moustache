@@ -506,7 +506,7 @@ const EVIDENCE_FACTS = [
   {
     id: "script",
     title: "THE SCRIPT ANOMALY",
-    text: 'In Magnum P.I., Higgins accuses Thomas Magnum of "doing a Burt Reynolds impersonation for the tourists." This line was not in the original script.',
+    text: 'In Magnum P.I., Higgins accuses Thomas Magnum of "doing a Burt Reynolds impersonation for the tourists." This line was not in the original script. But which identity was actually behind Magnum\'s private investigations?',
     source: "CBS Production Archives",
     category: "media",
     truthBoost: 4,
