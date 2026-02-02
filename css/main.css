@@ -1255,6 +1255,12 @@ body::before {
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 768px) {
+  .header-logo-text {
+    display: none;
+  }
+  .header-logo {
+    top: 6px;
+  }
   .investigation-layout {
     flex-direction: column;
   }
