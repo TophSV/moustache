@@ -680,6 +680,75 @@ body.conspiracy-mode .footer-classification::after {
   padding: 60px 20px 20px;
 }
 
+/* Phase 1: Rolling title cards */
+.fever-finale-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.fever-finale-start-rating {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--amber, #e8a030);
+  letter-spacing: 0.1em;
+  animation: fadeUp 0.6s ease both;
+}
+
+.fever-finale-end-rating {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(24px, 5vw, 44px);
+  font-weight: 900;
+  color: var(--red-string, #cc2020);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: ratingSlam 0.4s cubic-bezier(0.2, 0, 0.2, 1) both;
+}
+
+@keyframes ratingSlam {
+  from {
+    opacity: 0;
+    transform: scale(1.4);
+    text-shadow: 0 0 40px rgba(204, 32, 32, 0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    text-shadow: 0 0 20px rgba(204, 32, 32, 0.4);
+  }
+}
+
+.fever-finale-score {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: clamp(24px, 4vw, 38px);
+  color: var(--amber, #e8a030);
+  letter-spacing: 0.08em;
+  animation: fadeUp 0.5s ease both;
+}
+
+.fever-finale-score-punch {
+  font-family: var(--font-typewriter);
+  font-size: clamp(14px, 2vw, 18px);
+  color: rgba(245, 230, 208, 0.5);
+  max-width: 440px;
+  line-height: 1.5;
+}
+
+.fever-finale-closing {
+  font-family: var(--font-typewriter);
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: rgba(245, 230, 208, 0.7);
+  max-width: 500px;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+}
+
+/* Phase 2: Final persistent card */
 .fever-finale {
   display: flex;
   flex-direction: column;
@@ -687,6 +756,7 @@ body.conspiracy-mode .footer-classification::after {
   text-align: center;
   gap: 10px;
   max-width: 600px;
+  animation: fadeUp 0.8s ease both;
   width: 100%;
   animation: feverFadeIn 1.5s ease both;
 }
@@ -702,37 +772,38 @@ body.conspiracy-mode .footer-classification::after {
   text-shadow: 0 0 40px rgba(204, 32, 32, 0.4);
 }
 
-.fever-finale-rating {
+.fever-finale-title-text {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: clamp(16px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--red-string, #cc2020);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.fever-finale-journey {
   font-family: var(--font-data, "VT323", monospace);
-  font-size: 18px;
-  color: rgba(245, 230, 208, 0.6);
-  letter-spacing: 0.1em;
+  font-size: clamp(12px, 1.8vw, 16px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.fever-rating-value {
+.fever-journey-start {
   color: var(--amber, #e8a030);
-  transition: opacity 0.3s ease;
+  opacity: 0.7;
 }
 
-.fever-rating-changing {
-  opacity: 0;
+.fever-journey-arrow {
+  color: rgba(245, 230, 208, 0.3);
+  font-size: 1.2em;
 }
 
-.fever-rating-arrived {
-  animation: ratingArrive 0.5s ease-out both;
-}
-
-@keyframes ratingArrive {
-  from {
-    opacity: 0;
-    transform: scale(1.2);
-    color: var(--red-string, #cc2020);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-    color: var(--amber, #e8a030);
-  }
+.fever-journey-end {
+  color: var(--red-string, #cc2020);
+  font-weight: 700;
 }
 
 /* ---- FINALE CREDITS ---- */
@@ -797,6 +868,20 @@ body.conspiracy-mode .footer-classification::after {
 .fever-share-card:hover {
   border-color: var(--amber, #e8a030);
   background: rgba(232, 160, 48, 0.06);
+}
+
+.fever-refresh-btn {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: rgba(245, 230, 208, 0.25);
+  cursor: pointer;
+  margin-top: 6px;
+  transition: color 0.3s ease;
+}
+
+.fever-refresh-btn:hover {
+  color: rgba(245, 230, 208, 0.6);
 }
 
 .fever-copied {

@@ -735,4 +735,9 @@ const SHARE_TEXTS = [
   "Have you ever seen Tom Selleck and Burt Reynolds in the same room? I spent [TIME] investigating. My Truth Rating went from [START_RATING] to [RATING]. I can't prove they're different people.\n\nhttps://moustache.wtf",
   "I started playing this dumb moustache game to prove they're obviously two different people. [TIME] later my Truth Rating went from [START_RATING] to [RATING]. I have questions.\n\nhttps://moustache.wtf",
   "My Truth Rating for the Selleck-Reynolds Investigation went from [START_RATING] to [RATING] in [TIME]. The moustache metrics are a 99.7% match. I need someone to explain that.\n\nhttps://moustache.wtf",
+  "I went from [START_RATING] to [RATING] in [TIME] and I scored it on a moustache quiz. The quiz wasn't the point. The moustache was always the point.\n\nhttps://moustache.wtf",
+  "They showed me a photo of Freddie Mercury and asked if it was Tom Selleck or Burt Reynolds. I said Burt. It counted. My Truth Rating is [RATING].\n\nhttps://moustache.wtf",
+  "Burt Selleck and Tom Reynolds star in: the investigation that broke me. [TIME]. [START_RATING] to [RATING]. I need to sit down.\n\nhttps://moustache.wtf",
+  "The moustache forensics came back as a 99.7% match and I don't know what to do with this information. Truth Rating: [RATING].\n\nhttps://moustache.wtf",
+  "Someone made a website that asks you to identify moustaches and then systematically dismantles your sense of reality. My Truth Rating went from [START_RATING] to [RATING] in [TIME].\n\nhttps://moustache.wtf",
 ];

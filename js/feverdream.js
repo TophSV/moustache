@@ -978,59 +978,148 @@ const FeverDream = {
       },
     },
 
-    // ========== BEAT 22: THE END ==========
+    // ========== BEAT 22: THE GRAND FINALE ==========
     {
       corruption: 0.6,
       truth: 0,
       async render(stage, next) {
-        stage.innerHTML = "";
-        stage.classList.add("fever-finale-stage");
         document.body.classList.remove("screen-tilt");
-        const wrap = makeEl("div", "fever-finale");
-        stage.appendChild(wrap);
-        await dramaticPause(500);
+        stage.classList.add("fever-finale-stage");
 
-        // Truth rating journey
         const startLabel =
           Game.state.preFeverTruthLabel || "BLISSFULLY IGNORANT";
         const finalLabel = Game.getTruthLabel();
-        const rating = makeEl("div", "fever-finale-rating");
-        rating.innerHTML =
-          'Your Truth Rating: <span class="fever-rating-value">' +
+        const score = Game.state.score;
+        const total = Game.state.totalRounds;
+        const time = Game.getTimeString();
+
+        // Helper: show a title card on black
+        const showCard = async (buildFn) => {
+          stage.innerHTML = "";
+          const card = makeEl("div", "fever-finale-card");
+          stage.appendChild(card);
+          await buildFn(card);
+        };
+
+        // === CARD 1: THE TRUTH RATING JOURNEY ===
+        await showCard(async (card) => {
+          const intro = makeEl("div", "fever-text-dim");
+          intro.textContent = "You entered this investigation as";
+          card.appendChild(intro);
+          await dramaticPause(1200);
+          const startEl = makeEl("div", "fever-finale-start-rating");
+          startEl.textContent = startLabel;
+          card.appendChild(startEl);
+          await dramaticPause(3000);
+          // Fade out
+          card.style.opacity = "0";
+          card.style.transition = "opacity 0.8s ease";
+          await dramaticPause(1000);
+          card.style.opacity = "1";
+          card.innerHTML = "";
+          const now = makeEl("div", "fever-text-dim");
+          now.textContent = "You are now";
+          card.appendChild(now);
+          await dramaticPause(1200);
+          const finalEl = makeEl("div", "fever-finale-end-rating");
+          finalEl.textContent = finalLabel;
+          card.appendChild(finalEl);
+          shakeScreen(6, 300);
+          Audio.playReveal();
+          Effects.triggerGlitch();
+          await dramaticPause(3500);
+        });
+
+        // === CARD 2: THE SCORE ===
+        await showCard(async (card) => {
+          card.style.opacity = "0";
+          card.style.transition = "opacity 0.6s ease";
+          await dramaticPause(100);
+          card.style.opacity = "1";
+          const intro = makeEl("div", "fever-text-dim");
+          intro.textContent = "You identified";
+          card.appendChild(intro);
+          await dramaticPause(800);
+          const scoreEl = makeEl("div", "fever-finale-score");
+          scoreEl.textContent =
+            score + " of " + total + " moustaches correctly.";
+          card.appendChild(scoreEl);
+          await dramaticPause(2000);
+          const punch = makeEl("div", "fever-finale-score-punch");
+          card.appendChild(punch);
+          await typeText(
+            punch,
+            "It didn't matter. It was always the same moustache.",
+            35,
+          );
+          await dramaticPause(2500);
+        });
+
+        // === CARD 3: THE STARRING CREDITS ===
+        await showCard(async (card) => {
+          card.style.opacity = "0";
+          card.style.transition = "opacity 0.6s ease";
+          await dramaticPause(100);
+          card.style.opacity = "1";
+          const starring = makeEl("div", "fever-finale-starring");
+          starring.textContent = "Starring";
+          card.appendChild(starring);
+          await dramaticPause(1200);
+          const names = makeEl("div", "fever-finale-names");
+          names.innerHTML =
+            '<span class="fever-finale-name">BURT SELLECK</span>' +
+            '<span class="fever-finale-name">TOM REYNOLDS</span>';
+          card.appendChild(names);
+          Audio.playReveal();
+          await dramaticPause(2500);
+          const sub = makeEl("div", "fever-text-dim");
+          sub.textContent = "Or the other way around. Nobody can tell.";
+          card.appendChild(sub);
+          await dramaticPause(2500);
+        });
+
+        // === CARD 4: THE CLOSING STATEMENT ===
+        await showCard(async (card) => {
+          card.style.opacity = "0";
+          card.style.transition = "opacity 0.6s ease";
+          await dramaticPause(100);
+          card.style.opacity = "1";
+          const line = makeEl("div", "fever-finale-closing");
+          card.appendChild(line);
+          await typeText(
+            line,
+            "You can't prove they're different people. You've tried.",
+            45,
+          );
+          await dramaticPause(3000);
+          Effects.triggerGlitch();
+          card.style.opacity = "0";
+          await dramaticPause(1000);
+        });
+
+        // === PHASE 2: THE FINAL CARD ===
+        stage.innerHTML = "";
+        const wrap = makeEl("div", "fever-finale");
+        stage.appendChild(wrap);
+
+        // Title
+        const title = makeEl("div", "fever-finale-title-text");
+        title.textContent = "THERE IS ONLY ONE MOUSTACHE";
+        wrap.appendChild(title);
+
+        // Truth journey one-liner
+        const journey = makeEl("div", "fever-finale-journey");
+        journey.innerHTML =
+          '<span class="fever-journey-start">' +
           startLabel +
+          "</span>" +
+          '<span class="fever-journey-arrow">\u2192</span>' +
+          '<span class="fever-journey-end">' +
+          finalLabel +
           "</span>";
-        wrap.appendChild(rating);
-        await dramaticPause(2000);
-        // Animate the transition
-        const valueEl = rating.querySelector(".fever-rating-value");
-        valueEl.classList.add("fever-rating-changing");
-        await dramaticPause(400);
-        valueEl.textContent = finalLabel;
-        valueEl.classList.remove("fever-rating-changing");
-        valueEl.classList.add("fever-rating-arrived");
-        Audio.playReveal();
-        await dramaticPause(1500);
+        wrap.appendChild(journey);
 
-        // Credits — compact
-        const credits = makeEl("div", "fever-finale-credits");
-        credits.innerHTML =
-          '<div class="fever-finale-starring">Starring</div>' +
-          '<div class="fever-finale-names">' +
-          '<span class="fever-finale-name">BURT SELLECK</span>' +
-          '<span class="fever-finale-name">TOM REYNOLDS</span>' +
-          "</div>";
-        wrap.appendChild(credits);
-        await dramaticPause(1500);
-
-        const line = makeEl(
-          "div",
-          "fever-text-dim",
-          "You can't prove they're different people. You've tried.",
-        );
-        wrap.appendChild(line);
-        await dramaticPause(1000);
-
-        // Share — pick one random card
+        // Share section
         const shareWrap = makeEl("div", "fever-share-wrap");
         wrap.appendChild(shareWrap);
         const shareLabel = makeEl(
@@ -1039,24 +1128,48 @@ const FeverDream = {
           "TRANSMIT YOUR FINDINGS",
         );
         shareWrap.appendChild(shareLabel);
-        const start_rating = startLabel;
-        const time = Game.getTimeString();
-        const template =
-          SHARE_TEXTS[Math.floor(Math.random() * SHARE_TEXTS.length)];
-        const text = template
-          .replace("[TIME]", time)
-          .replace("[START_RATING]", start_rating)
-          .replace("[RATING]", finalLabel);
-        const card = makeEl("div", "fever-share-card", text);
-        card.addEventListener("click", () => {
-          navigator.clipboard.writeText(text).then(() => {
-            card.textContent = "COPIED — TRANSMISSION INITIATED";
-            card.classList.add("fever-copied");
+
+        // Build share card with refresh
+        let usedIndices = [];
+        const buildShareCard = () => {
+          if (usedIndices.length >= SHARE_TEXTS.length) usedIndices = [];
+          let idx;
+          do {
+            idx = Math.floor(Math.random() * SHARE_TEXTS.length);
+          } while (usedIndices.includes(idx));
+          usedIndices.push(idx);
+          const text = SHARE_TEXTS[idx]
+            .replace("[TIME]", time)
+            .replace("[START_RATING]", startLabel)
+            .replace("[RATING]", finalLabel);
+          return text;
+        };
+
+        const cardEl = makeEl("div", "fever-share-card");
+        let currentText = buildShareCard();
+        cardEl.textContent = currentText;
+        cardEl.addEventListener("click", () => {
+          navigator.clipboard.writeText(currentText).then(() => {
+            cardEl.textContent = "COPIED — TRANSMISSION INITIATED";
+            cardEl.classList.add("fever-copied");
+            setTimeout(() => {
+              cardEl.classList.remove("fever-copied");
+              cardEl.textContent = currentText;
+            }, 2000);
           });
         });
-        shareWrap.appendChild(card);
+        shareWrap.appendChild(cardEl);
 
-        // Bottom row — play again + open source
+        const refreshBtn = makeEl("div", "fever-refresh-btn");
+        refreshBtn.textContent = "\u21bb REFRESH TRANSMISSION";
+        refreshBtn.addEventListener("click", () => {
+          currentText = buildShareCard();
+          cardEl.classList.remove("fever-copied");
+          cardEl.textContent = currentText;
+        });
+        shareWrap.appendChild(refreshBtn);
+
+        // Bottom
         const bottom = makeEl("div", "fever-finale-bottom");
         const again = makeEl("div", "fever-play-again");
         again.textContent = "PLAY AGAIN — DIFFERENT PHOTOS, SAME TRUTH";
