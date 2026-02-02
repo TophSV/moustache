@@ -139,12 +139,23 @@ const Game = {
     );
     const impostors = shuffle(PHOTO_DATA.filter((p) => p.type === "impostor"));
 
-    // Pick 3 selleck, 3 reynolds, 2 impostors
-    const picked = [
-      ...selleck.slice(0, 3),
-      ...reynolds.slice(0, 3),
-      ...impostors.slice(0, 2),
-    ];
+    // Pick 3 selleck, 3 reynolds, 2 impostors — no duplicate URLs
+    const usedUrls = new Set();
+    const pickUnique = (pool, count) => {
+      const result = [];
+      for (const p of pool) {
+        if (result.length >= count) break;
+        if (!usedUrls.has(p.url)) {
+          usedUrls.add(p.url);
+          result.push(p);
+        }
+      }
+      return result;
+    };
+    const pickedSelleck = pickUnique(selleck, 3);
+    const pickedReynolds = pickUnique(reynolds, 3);
+    const pickedImpostors = pickUnique(impostors, 2);
+    const picked = [...pickedSelleck, ...pickedReynolds, ...pickedImpostors];
 
     // Guarantee first 2 slots are real photos (no impostors)
     const reals = shuffle(picked.filter((p) => p.type === "real"));
