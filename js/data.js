@@ -690,38 +690,48 @@ const SKEPTIC_RESPONSES = [
 
 const TRUTH_RATINGS = [
   {
-    max: 10,
+    max: 5,
     label: "BLISSFULLY IGNORANT",
     desc: "You haven't looked closely enough yet. You will.",
   },
   {
-    max: 20,
+    max: 12,
     label: "MILDLY UNCOMFORTABLE",
     desc: "Something doesn't sit right. You can't name it yet.",
   },
   {
-    max: 35,
+    max: 20,
+    label: "SQUINTING SUSPICIOUSLY",
+    desc: "You're leaning closer to the screen. We can tell.",
+  },
+  {
+    max: 30,
     label: "ACTIVELY QUESTIONING",
     desc: "You've started checking facts. That's how it begins.",
   },
   {
-    max: 50,
+    max: 40,
     label: "UNABLE TO UNSEE",
     desc: "The patterns are everywhere now. You see them in every photo.",
   },
   {
-    max: 65,
+    max: 55,
     label: "DEEP IN THE FILES",
     desc: "You've been here too long. The cork board is getting crowded.",
   },
   {
-    max: 80,
+    max: 70,
     label: "DANGEROUSLY AWARE",
     desc: "You started as a skeptic. Look at you now.",
   },
   {
-    max: 95,
-    label: "TRUTH RATING: CRITICAL",
+    max: 85,
+    label: "ONE WITH THE MOUSTACHE",
+    desc: "The line between observer and subject has dissolved.",
+  },
+  {
+    max: 99,
+    label: "THERE IS NO SEPARATION",
     desc: "You can't prove they're not the same person. You've tried.",
   },
   {
