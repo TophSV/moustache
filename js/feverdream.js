@@ -1177,6 +1177,44 @@ const FeverDream = {
         });
         shareWrap.appendChild(refreshBtn);
 
+        // Share platform buttons
+        const platforms = [
+          {
+            name: "X",
+            url: (t) =>
+              `https://x.com/intent/tweet?text=${encodeURIComponent(t)}`,
+          },
+          {
+            name: "Reddit",
+            url: (t) =>
+              `https://reddit.com/submit?title=${encodeURIComponent(t)}&url=${encodeURIComponent("https://moustache.wtf")}`,
+          },
+          {
+            name: "Facebook",
+            url: (t) =>
+              `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(t)}&u=${encodeURIComponent("https://moustache.wtf")}`,
+          },
+          {
+            name: "Threads",
+            url: (t) =>
+              `https://threads.net/intent/post?text=${encodeURIComponent(t)}`,
+          },
+          {
+            name: "Bluesky",
+            url: (t) =>
+              `https://bsky.app/intent/compose?text=${encodeURIComponent(t)}`,
+          },
+        ];
+        const btnRow = makeEl("div", "fever-share-buttons");
+        platforms.forEach((p) => {
+          const btn = makeEl("div", "fever-share-btn", p.name);
+          btn.addEventListener("click", () => {
+            window.open(p.url(currentText), "_blank", "noopener");
+          });
+          btnRow.appendChild(btn);
+        });
+        shareWrap.appendChild(btnRow);
+
         // Bottom
         const bottom = makeEl("div", "fever-finale-bottom");
         const again = makeEl("div", "fever-play-again");

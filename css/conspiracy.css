@@ -884,6 +884,32 @@ body.conspiracy-mode .footer-classification::after {
   color: rgba(245, 230, 208, 0.6);
 }
 
+.fever-share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.fever-share-btn {
+  font-family: var(--font-data, "VT323", monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(245, 230, 208, 0.3);
+  cursor: pointer;
+  padding: 4px 10px;
+  border: 1px solid rgba(245, 230, 208, 0.12);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.fever-share-btn:hover {
+  color: var(--amber, #e8a030);
+  border-color: var(--amber, #e8a030);
+}
+
 .fever-copied {
   color: var(--amber, #e8a030);
   border-color: var(--amber, #e8a030);
