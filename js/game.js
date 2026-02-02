@@ -146,9 +146,14 @@ const Game = {
       ...impostors.slice(0, 2),
     ];
 
-    // Shuffle the final selection and assign exhibits
+    // Guarantee first 2 slots are real photos (no impostors)
+    const reals = shuffle(picked.filter((p) => p.type === "real"));
+    const imps = picked.filter((p) => p.type === "impostor");
+    const firstTwo = reals.slice(0, 2);
+    const rest = shuffle([...reals.slice(2), ...imps]);
+
     const labels = "ABCDEFGH";
-    return shuffle(picked).map((photo, i) => ({
+    return [...firstTwo, ...rest].map((photo, i) => ({
       ...photo,
       exhibit: "Exhibit " + labels[i],
     }));

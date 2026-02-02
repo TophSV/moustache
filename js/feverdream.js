@@ -457,10 +457,12 @@ const FeverDream = {
         wrap.appendChild(btnWrap);
         await new Promise((resolve) => {
           btnYes.addEventListener("click", () => {
+            Game.state.believeChoice = "yes";
             Game.boostTruth(3);
             resolve();
           });
           btnNo.addEventListener("click", () => {
+            Game.state.believeChoice = "no";
             const resp =
               SKEPTIC_RESPONSES[
                 Math.floor(Math.random() * SKEPTIC_RESPONSES.length)
@@ -472,6 +474,189 @@ const FeverDream = {
             setTimeout(resolve, 2000);
           });
         });
+        next();
+      },
+    },
+
+    // ========== BEAT 9.5: CONDITIONAL — YES: THE PAPER TRAIL / NO: THE MANUFACTURED FEUD ==========
+    {
+      corruption: 0.53,
+      truth: 0, // truth is boosted manually inside each path
+      async render(stage, next) {
+        if (Game.state.believeChoice === "yes") {
+          // === THE PAPER TRAIL (YES path) ===
+          stage.innerHTML = "";
+          const terminal = makeEl("div", "fever-terminal");
+          stage.appendChild(terminal);
+          const l1 = makeEl("div", "fever-terminal-line fever-green");
+          terminal.appendChild(l1);
+          await typeText(l1, "> BELIEF CONFIRMED.", 25);
+          await dramaticPause(600);
+          const l2 = makeEl("div", "fever-terminal-line fever-green");
+          terminal.appendChild(l2);
+          await typeText(l2, "> UNLOCKING RESTRICTED FILE.", 25);
+          Audio.playGlitch();
+          Effects.triggerGlitch();
+          await dramaticPause(1200);
+
+          stage.innerHTML = "";
+          const card = makeEl("div", "fever-evidence");
+          const title = makeEl("div", "fever-evidence-title");
+          card.appendChild(title);
+          Effects.scrambleText(title, "THE PAPER TRAIL", 500);
+          stage.appendChild(card);
+          await dramaticPause(800);
+
+          const text1 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text1);
+          await typeText(
+            text1,
+            "In 1989, Selleck became the executive producer of a television show.",
+            25,
+          );
+          await dramaticPause(600);
+
+          const text2 = makeEl("div", "fever-evidence-sub fever-big");
+          text2.textContent = "It starred Reynolds.";
+          card.appendChild(text2);
+          shakeScreen(4, 200);
+          await dramaticPause(1800);
+
+          const text3 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text3);
+          const phrases = [
+            "One identity.",
+            "Controlling the other's career.",
+            "In writing.",
+            "On a contract.",
+          ];
+          for (const phrase of phrases) {
+            text3.textContent += (text3.textContent ? " " : "") + phrase;
+            await dramaticPause(600);
+          }
+          await dramaticPause(800);
+
+          const kicker = makeEl("div", "fever-huge");
+          card.appendChild(kicker);
+          Effects.scrambleText(kicker, "The deal closed in two days.", 800);
+          flashScreen("#ff3030", 150);
+          Audio.playReveal();
+          await dramaticPause(2000);
+
+          const whisper1 = makeEl("div", "fever-text-dim");
+          whisper1.textContent = "As if he'd been told to say yes.";
+          card.appendChild(whisper1);
+          await dramaticPause(2000);
+
+          const whisper2 = makeEl("div", "fever-text-dim");
+          whisper2.style.fontStyle = "italic";
+          whisper2.textContent = "Just like you.";
+          card.appendChild(whisper2);
+          Effects.triggerFlicker();
+          Game.boostTruth(5);
+          await dramaticPause(2500);
+        } else {
+          // === THE MANUFACTURED FEUD (NO path) ===
+          stage.innerHTML = "";
+          stage.classList.add("fever-blackout");
+          await dramaticPause(800);
+
+          const said = makeEl("div", "fever-text-dim");
+          said.textContent = "You said no.";
+          stage.appendChild(said);
+          await dramaticPause(1500);
+
+          const interesting = makeEl("div", "fever-text-dim");
+          interesting.textContent = "Interesting.";
+          stage.appendChild(interesting);
+          await dramaticPause(1800);
+
+          stage.classList.remove("fever-blackout");
+          stage.innerHTML = "";
+          Audio.playGlitch();
+          Effects.triggerGlitch();
+
+          const card = makeEl("div", "fever-evidence");
+          const title = makeEl("div", "fever-evidence-title");
+          card.appendChild(title);
+          Effects.scrambleText(title, "THE MANUFACTURED FEUD", 600);
+          stage.appendChild(card);
+          await dramaticPause(800);
+
+          const text1 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text1);
+          await typeText(
+            text1,
+            "In 1984, there was a woman. Reynolds' woman.",
+            28,
+          );
+          await dramaticPause(1000);
+
+          const text2 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text2);
+          await typeText(
+            text2,
+            "Rumors said she spent a night with Selleck.",
+            28,
+          );
+          await dramaticPause(1200);
+          shakeScreen(5, 250);
+
+          const text3 = makeEl("div", "fever-evidence-sub fever-big");
+          text3.textContent = "They never spoke again.";
+          card.appendChild(text3);
+          await dramaticPause(2000);
+
+          // The reframe — word by word
+          const reframe1 = makeEl("div", "fever-evidence-text");
+          card.appendChild(reframe1);
+          const words1 = "If you were one person pretending to be two...".split(
+            " ",
+          );
+          for (const word of words1) {
+            reframe1.textContent += (reframe1.textContent ? " " : "") + word;
+            await dramaticPause(250);
+          }
+          await dramaticPause(800);
+
+          const reframe2 = makeEl("div", "fever-evidence-text");
+          card.appendChild(reframe2);
+          await typeText(reframe2, "you would ", 30);
+          const needSpan = document.createElement("span");
+          needSpan.className = "fever-highlight";
+          reframe2.appendChild(needSpan);
+          Effects.scrambleText(needSpan, "NEED", 400);
+          shakeScreen(6, 300);
+          await dramaticPause(600);
+          const needRest = document.createTextNode(" a public falling out.");
+          reframe2.appendChild(needRest);
+          await dramaticPause(1200);
+
+          const text4 = makeEl("div", "fever-evidence-text");
+          card.appendChild(text4);
+          await typeText(
+            text4,
+            "You would need witnesses. A woman between them. A story no one would ever question.",
+            18,
+          );
+          await dramaticPause(1200);
+
+          const alibi = makeEl("div", "fever-huge");
+          card.appendChild(alibi);
+          Effects.scrambleText(alibi, "The feud was the alibi.", 600);
+          flashScreen("#ff3030", 150);
+          Audio.playReveal();
+          await dramaticPause(2000);
+
+          const aimed = makeEl("div", "fever-text-dim");
+          aimed.style.fontStyle = "italic";
+          aimed.textContent =
+            "Your skepticism is exactly what the feud was designed to create.";
+          card.appendChild(aimed);
+          Effects.triggerFlicker();
+          Game.boostTruth(4);
+          await dramaticPause(2500);
+        }
         next();
       },
     },
@@ -736,7 +921,52 @@ const FeverDream = {
         );
         wrap.appendChild(wont);
         await dramaticPause(1200);
-        const btn = makeEl("button", "fever-btn", "I CAN'T STOP");
+
+        // Conditional easter egg based on YES/NO choice
+        if (Game.state.believeChoice === "yes") {
+          const egg1 = makeEl("div", "fever-dossier-text");
+          wrap.appendChild(egg1);
+          await typeText(
+            egg1,
+            "You said YES at the 99.7% checkpoint. Your file has been updated.",
+            18,
+          );
+          await dramaticPause(600);
+          const egg2 = makeEl("div", "fever-evidence-sub");
+          egg2.textContent = "Classification: WILLING PARTICIPANT.";
+          wrap.appendChild(egg2);
+          Effects.triggerFlicker();
+          await dramaticPause(1200);
+        } else if (Game.state.believeChoice === "no") {
+          const egg1 = makeEl("div", "fever-dossier-text");
+          wrap.appendChild(egg1);
+          await typeText(egg1, "You said NO at the 99.7% checkpoint.", 18);
+          await dramaticPause(400);
+          const egg2 = makeEl("div", "fever-dossier-text");
+          wrap.appendChild(egg2);
+          await typeText(egg2, "Logging resistance pattern.", 18);
+          await dramaticPause(800);
+          const egg3 = makeEl("div", "fever-evidence-sub");
+          egg3.textContent =
+            "SUBJECTS WHO SAID NO AND STILL REACHED THIS POINT:";
+          wrap.appendChild(egg3);
+          await dramaticPause(400);
+          const stat = makeEl("div", "fever-huge fever-number");
+          stat.textContent = "0";
+          wrap.appendChild(stat);
+          await animateNumber(stat, 0, 94.2, 1200, "%");
+          stat.textContent = "94.2%";
+          Effects.triggerFlicker();
+          await dramaticPause(1200);
+        }
+
+        const btnLabel =
+          Game.state.believeChoice === "yes"
+            ? "I DON'T WANT TO STOP"
+            : Game.state.believeChoice === "no"
+              ? "I'M STILL NOT CONVINCED"
+              : "I CAN'T STOP";
+        const btn = makeEl("button", "fever-btn", btnLabel);
         wrap.appendChild(btn);
         await new Promise((resolve) => {
           btn.addEventListener("click", () => {
@@ -808,6 +1038,39 @@ const FeverDream = {
           30,
         );
         await dramaticPause(800);
+
+        // Conditional easter egg — the show confessed on camera
+        if (Game.state.believeChoice) {
+          const confess = makeEl("div", "fever-evidence-text");
+          card.appendChild(confess);
+          await typeText(
+            confess,
+            "A security guard on the show mistook Magnum for Burt Reynolds. On camera. In the script.",
+            22,
+          );
+          await dramaticPause(800);
+          const confess2 = makeEl("div", "fever-evidence-text");
+          card.appendChild(confess2);
+          await typeText(
+            confess2,
+            "It happened to Selleck in real life too.",
+            30,
+          );
+          await dramaticPause(1000);
+          if (Game.state.believeChoice === "yes") {
+            const tag = makeEl("div", "fever-text-dim");
+            tag.style.fontStyle = "italic";
+            tag.textContent = "The show was confessing. You already knew that.";
+            card.appendChild(tag);
+          } else {
+            const tag = makeEl("div", "fever-text-dim");
+            tag.style.fontStyle = "italic";
+            tag.textContent = "You said no. But the show said yes. Repeatedly.";
+            card.appendChild(tag);
+          }
+          await dramaticPause(1500);
+        }
+
         Effects.triggerGlitch();
         Effects.triggerVHSTrack();
         // Distort
