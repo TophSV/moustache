@@ -212,7 +212,11 @@ const FeverDream = {
         const sub = makeEl("div", "fever-evidence-sub fever-big");
         sub.textContent = "As in: recognized.";
         card.appendChild(sub);
-        await dramaticPause(2500);
+        await dramaticPause(1200);
+        sub.textContent = "As in: recognized. Found out.";
+        await dramaticPause(1800);
+        sub.textContent = "As in: recognized. Caught.";
+        await dramaticPause(120);
         next();
       },
     },
