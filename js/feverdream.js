@@ -420,9 +420,9 @@ const FeverDream = {
         wrap.appendChild(intro);
         await dramaticPause(600);
         // Animated bars
-        const keys = Object.keys(MUSTACHE_ANALYSIS);
+        const keys = Object.keys(MOUSTACHE_ANALYSIS);
         for (let i = 0; i < keys.length; i++) {
-          const d = MUSTACHE_ANALYSIS[keys[i]];
+          const d = MOUSTACHE_ANALYSIS[keys[i]];
           const max = Math.max(d.s, d.r) * 1.1;
           const row = makeEl("div", "fever-forensic-row");
           row.innerHTML = `

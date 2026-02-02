@@ -129,9 +129,9 @@ const Investigation = {
       "Side-by-side follicle analysis comparing Subject S (Selleck) and Subject R (Reynolds). All measurements taken from high-resolution film stills using proprietary forensic imaging software.";
     container.appendChild(intro);
 
-    const keys = Object.keys(MUSTACHE_ANALYSIS);
+    const keys = Object.keys(MOUSTACHE_ANALYSIS);
     keys.forEach((key, i) => {
-      const d = MUSTACHE_ANALYSIS[key];
+      const d = MOUSTACHE_ANALYSIS[key];
       const max = Math.max(d.s, d.r) * 1.1;
       const row = document.createElement("div");
       row.className = "forensic-row";
