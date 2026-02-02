@@ -494,8 +494,6 @@ const Game = {
 
     // Make turn content visible now that opacity is set to 0
     document.querySelector(".turn-content").style.visibility = "visible";
-
-    this.boostTruth(5);
   },
 
   // --- ENTER THE FEVER DREAM ---
