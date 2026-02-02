@@ -137,9 +137,15 @@ const Game = {
     const reynolds = shuffle(
       PHOTO_DATA.filter((p) => p.answer === "reynolds" && p.type === "real"),
     );
-    const impostors = shuffle(PHOTO_DATA.filter((p) => p.type === "impostor"));
+    const plausible = shuffle(
+      PHOTO_DATA.filter((p) => p.type === "impostor" && p.tier === "plausible"),
+    );
+    const absurd = shuffle(
+      PHOTO_DATA.filter((p) => p.type === "impostor" && p.tier === "absurd"),
+    );
 
-    // Pick 3 selleck, 3 reynolds, 2 impostors — no duplicate URLs
+    // Pick 3 selleck, 3 reynolds, 2 impostors
+    // 50% chance one impostor is absurd; otherwise both plausible
     const usedUrls = new Set();
     const pickUnique = (pool, count) => {
       const result = [];
@@ -154,7 +160,10 @@ const Game = {
     };
     const pickedSelleck = pickUnique(selleck, 3);
     const pickedReynolds = pickUnique(reynolds, 3);
-    const pickedImpostors = pickUnique(impostors, 2);
+    const includeAbsurd = Math.random() < 0.5;
+    const pickedImpostors = includeAbsurd
+      ? [...pickUnique(plausible, 1), ...pickUnique(absurd, 1)]
+      : pickUnique(plausible, 2);
     const picked = [...pickedSelleck, ...pickedReynolds, ...pickedImpostors];
 
     // Guarantee first 2 slots are real photos (no impostors)
