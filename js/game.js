@@ -301,24 +301,46 @@ const Game = {
   },
 
   // Track used foreshadow messages
-  usedForeshadows: [],
+  usedPre: [],
+  usedPost: [],
 
-  showForeshadow(callback) {
-    // Pick unused foreshadow message
-    if (this.usedForeshadows.length >= FORESHADOW_FLASHES.length) {
-      this.usedForeshadows = [];
-    }
-    const available = FORESHADOW_FLASHES.filter(
-      (f) => !this.usedForeshadows.includes(f),
-    );
+  pickFrom(pool, used) {
+    if (used.length >= pool.length) used.length = 0;
+    const available = pool.filter((f) => !used.includes(f));
     const msg = available[Math.floor(Math.random() * available.length)];
-    this.usedForeshadows.push(msg);
+    used.push(msg);
+    return msg;
+  },
 
-    // Hard cut — psychotic intrusion
+  // Pre-answer intrusion — short, violent, jarring
+  showPreIntrusion(callback) {
+    const msg = this.pickFrom(FORESHADOW_PRE, this.usedPre);
+    const overlay = document.createElement("div");
+    overlay.className = "quiz-foreshadow foreshadow-pre";
+    const text = document.createElement("div");
+    text.className = "foreshadow-text foreshadow-text-pre";
+    text.textContent = msg;
+    overlay.appendChild(text);
+    document.body.appendChild(overlay);
+    Audio.playGlitch();
+    Effects.triggerGlitch();
+
+    // Short sharp hold then snap back
+    setTimeout(
+      () => {
+        overlay.remove();
+        callback();
+      },
+      800 + Math.random() * 400,
+    );
+  },
+
+  // Post-answer intrusion — full vision, burns in from black
+  showPostIntrusion(callback) {
+    const msg = this.pickFrom(FORESHADOW_POST, this.usedPost);
     const overlay = document.createElement("div");
     overlay.className = "quiz-foreshadow";
     document.body.appendChild(overlay);
-    Audio.playGlitch();
     Effects.triggerGlitch();
 
     // Text burns in after a beat of black
@@ -329,8 +351,9 @@ const Game = {
       overlay.appendChild(text);
     }, 400);
 
-    // Hard snap back to quiz
+    // Hard snap back
     setTimeout(() => {
+      Audio.playGlitch();
       Effects.triggerGlitch();
       overlay.remove();
       callback();
@@ -349,9 +372,6 @@ const Game = {
 
     if (isImpostor || isCorrect) {
       this.state.score++;
-      Audio.playCorrect();
-    } else {
-      Audio.playWrong();
     }
 
     this.state.answers.push({
@@ -361,53 +381,69 @@ const Game = {
       actual: data.answer,
     });
 
-    // Show result
-    const resultEl = document.getElementById("quiz-result");
-    const iconEl = document.getElementById("result-icon");
-    const textEl = document.getElementById("result-text");
-    const subEl = document.getElementById("result-subtext");
-
-    resultEl.style.display = "";
-    document.getElementById("quiz-photo").style.display = "none";
-    subEl.textContent = "";
-    subEl.style.display = "none";
-
-    if (isImpostor) {
-      iconEl.textContent = "\u2713";
-      textEl.textContent = "CORRECT... TECHNICALLY";
-      resultEl.className = "quiz-result result-impostor";
-      if (data.joke) {
-        subEl.textContent = data.joke;
-        subEl.style.display = "";
-      }
-    } else if (isCorrect) {
-      iconEl.textContent = "\u2713";
-      textEl.textContent = "CORRECT";
-      resultEl.className = "quiz-result result-correct";
-    } else {
-      const name = data.answer === "selleck" ? "Tom Selleck" : "Burt Reynolds";
-      iconEl.textContent = "\u2717";
-      textEl.textContent = "INCORRECT \u2014 That was " + name;
-      resultEl.className = "quiz-result result-wrong";
-    }
-
     // Truth goes up regardless
     this.boostTruth(isCorrect ? 1 : 2);
-
     this.updateHUD();
 
-    const resultDelay = isImpostor ? 3500 : 1800;
     const round = this.state.round;
 
-    setTimeout(() => {
-      // Foreshadow flash logic: skip round 1, 40% rounds 2-3, guaranteed 4+
-      const shouldFlash = round > 1 && (round >= 4 || Math.random() < 0.4);
-      if (shouldFlash) {
-        this.showForeshadow(() => this.nextRound());
+    const showResult = () => {
+      if (isImpostor || isCorrect) {
+        Audio.playCorrect();
       } else {
-        this.nextRound();
+        Audio.playWrong();
       }
-    }, resultDelay);
+
+      const resultEl = document.getElementById("quiz-result");
+      const iconEl = document.getElementById("result-icon");
+      const textEl = document.getElementById("result-text");
+      const subEl = document.getElementById("result-subtext");
+
+      resultEl.style.display = "";
+      document.getElementById("quiz-photo").style.display = "none";
+      subEl.textContent = "";
+      subEl.style.display = "none";
+
+      if (isImpostor) {
+        iconEl.textContent = "\u2713";
+        textEl.textContent = "CORRECT... TECHNICALLY";
+        resultEl.className = "quiz-result result-impostor";
+        if (data.joke) {
+          subEl.textContent = data.joke;
+          subEl.style.display = "";
+        }
+      } else if (isCorrect) {
+        iconEl.textContent = "\u2713";
+        textEl.textContent = "CORRECT";
+        resultEl.className = "quiz-result result-correct";
+      } else {
+        const name =
+          data.answer === "selleck" ? "Tom Selleck" : "Burt Reynolds";
+        iconEl.textContent = "\u2717";
+        textEl.textContent = "INCORRECT \u2014 That was " + name;
+        resultEl.className = "quiz-result result-wrong";
+      }
+
+      const resultDelay = isImpostor ? 3500 : 1800;
+
+      setTimeout(() => {
+        // Post-answer intrusion — every round after round 1
+        if (round > 1) {
+          this.showPostIntrusion(() => this.nextRound());
+        } else {
+          this.nextRound();
+        }
+      }, resultDelay);
+    };
+
+    // Pre-answer intrusion — every round after round 1
+    // Hide the photo first so the intrusion cuts from a clean state
+    document.getElementById("quiz-photo").style.display = "none";
+    if (round > 1) {
+      this.showPreIntrusion(showResult);
+    } else {
+      showResult();
+    }
   },
 
   updateHUD() {
